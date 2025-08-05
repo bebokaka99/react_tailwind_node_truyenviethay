@@ -1,0 +1,223 @@
+// src/pages/ComicsPage.tsx
+import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import { comicDetails } from '../mockDataComics';
+
+// Hàm helper để phân tích lượt xem
+const parseViews = (views: string) => {
+  if (views.endsWith('M')) {
+    return parseFloat(views) * 1000000;
+  }
+  if (views.endsWith('K')) {
+    return parseFloat(views) * 1000;
+  }
+  return parseFloat(views);
+};
+
+export default function ComicsPage() {
+  const [selectedGenre, setSelectedGenre] = useState('all');
+  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [selectedOrigin, setSelectedOrigin] = useState('all');
+  const [sortBy, setSortBy] = useState('popular');
+
+  const genres = [
+    { id: 'all', name: 'Tất cả' },
+    { id: 'action', name: 'Hành động' },
+    { id: 'fantasy', name: 'Fantasy' },
+    { id: 'romance', name: 'Romance' },
+    { id: 'adventure', name: 'Phiêu lưu' },
+    { id: 'comedy', name: 'Hài hước' },
+    { id: 'drama', name: 'Chính kịch' }
+  ];
+
+  const origins = [
+    { id: 'all', name: 'Tất cả' },
+    { id: 'manga', name: 'Manga (Nhật)' },
+    { id: 'manhwa', name: 'Manhwa (Hàn)' },
+    { id: 'manhua', name: 'Manhua (Trung)' }
+  ];
+
+  const processedComics = comicDetails.map(comic => ({
+    ...comic,
+    // Chuyển đổi mảng genres thành một chuỗi duy nhất để lọc
+    genre: comic.genres[0].toLowerCase().replace(/\s/g, '-')
+  }));
+
+  const filteredComics = useMemo(() => {
+    return processedComics.filter(comic => {
+      const genreMatch = selectedGenre === 'all' || comic.genre === selectedGenre;
+      const statusMatch = selectedStatus === 'all' || comic.status === selectedStatus;
+      const originMatch = selectedOrigin === 'all' || comic.origin === selectedOrigin;
+      return genreMatch && statusMatch && originMatch;
+    });
+  }, [selectedGenre, selectedStatus, selectedOrigin, processedComics]);
+
+  const sortedComics = useMemo(() => {
+    return [...filteredComics].sort((a, b) => {
+      switch (sortBy) {
+        case 'latest':
+          // Giả định truyện mới nhất có số chương cao nhất
+          return b.chapters - a.chapters;
+        case 'rating':
+          return b.rating - a.rating;
+        case 'views':
+          return parseViews(b.views) - parseViews(a.views);
+        default:
+          return parseViews(b.views) - parseViews(a.views);
+      }
+    });
+  }, [filteredComics, sortBy]);
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+      <Header />
+      
+      <div className="container mx-auto px-6 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">Truyện tranh</h1>
+          <p className="text-gray-600 dark:text-gray-400">Thưởng thức những tác phẩm manga, manhwa, manhua tuyệt vời nhất</p>
+        </div>
+
+        {/* Bộ lọc và sắp xếp */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8 transition-colors">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div>
+              <label className="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Thể loại</label>
+              <select 
+                value={selectedGenre} 
+                onChange={(e) => setSelectedGenre(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 pr-8"
+              >
+                {genres.map(genre => (
+                  <option key={genre.id} value={genre.id}>{genre.name}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Xuất xứ</label>
+              <select 
+                value={selectedOrigin} 
+                onChange={(e) => setSelectedOrigin(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 pr-8"
+              >
+                {origins.map(origin => (
+                  <option key={origin.id} value={origin.id}>{origin.name}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Tình trạng</label>
+              <select 
+                value={selectedStatus} 
+                onChange={(e) => setSelectedStatus(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 pr-8"
+              >
+                <option value="all">Tất cả</option>
+                <option value="Đang cập nhật">Đang cập nhật</option>
+                <option value="Hoàn thành">Hoàn thành</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-gray-700 dark:text-gray-300 text-sm font-semibold mb-2">Sắp xếp</label>
+              <select 
+                value={sortBy} 
+                onChange={(e) => setSortBy(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 pr-8"
+              >
+                <option value="popular">Phổ biến</option>
+                <option value="latest">Mới nhất</option>
+                <option value="rating">Đánh giá cao</option>
+                <option value="views">Lượt xem</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Danh sách truyện tranh */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {sortedComics.map((comic) => (
+            <div key={comic.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all border border-gray-100 dark:border-gray-700">
+              <div className="flex">
+                <div className="w-32 flex-shrink-0">
+                  <img 
+                    src={comic.coverUrl}
+                    alt={comic.title}
+                    className="w-full h-48 object-cover object-top rounded-l-lg"
+                  />
+                </div>
+                
+                <div className="flex-1 p-4">
+                  <div className="flex justify-between items-start mb-2">
+                    <Link to={`/comic/${comic.id}`} className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                      <h3 className="font-bold text-lg text-gray-800 dark:text-gray-100 line-clamp-1">{comic.title}</h3>
+                    </Link>
+                    <span className={`px-2 py-1 text-xs font-semibold rounded-full ml-2 whitespace-nowrap ${
+                      comic.status === 'Đang cập nhật' 
+                        ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' 
+                        : 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300'
+                    }`}>
+                      {comic.status}
+                    </span>
+                  </div>
+                  
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">Tác giả: {comic.author}</p>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm mb-3 line-clamp-2">{comic.description}</p>
+                  
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
+                      <span>{comic.chapters} chương</span>
+                      <span>{comic.views} lượt xem</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="flex text-yellow-400">
+                        {[...Array(5)].map((_, i) => (
+                          <i key={i} className={`ri-star-${i < Math.floor(comic.rating) ? 'fill' : 'line'} text-sm`}></i>
+                        ))}
+                      </div>
+                      <span className="text-gray-600 dark:text-gray-400 text-sm ml-1">{comic.rating}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between mb-3">
+                    <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                      comic.origin === 'manga' ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' :
+                      comic.origin === 'manhwa' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300' :
+                      'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'
+                    }`}>
+                      {origins.find(o => o.id === comic.origin)?.name || comic.origin}
+                    </span>
+                    <p className="text-gray-500 dark:text-gray-500 text-xs">Cập nhật: {comic.lastUpdate}</p>
+                  </div>
+                  
+                  <Link to={`/comic/${comic.id}`} className="block">
+                    <button className="w-full bg-purple-600 dark:bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors whitespace-nowrap cursor-pointer">
+                      Xem ngay
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Thông báo khi không có truyện */}
+        {sortedComics.length === 0 && (
+          <div className="text-center py-12">
+            <div className="w-16 h-16 flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-full mx-auto mb-4">
+              <i className="ri-book-2-line text-2xl text-gray-400 dark:text-gray-500"></i>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Không tìm thấy truyện tranh</h3>
+            <p className="text-gray-600 dark:text-gray-400">Thử thay đổi bộ lọc để tìm kiếm tác phẩm khác</p>
+          </div>
+        )}
+      </div>
+      
+      <Footer />
+    </div>
+  );
+}

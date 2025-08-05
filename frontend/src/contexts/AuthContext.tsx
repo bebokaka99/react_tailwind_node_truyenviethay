@@ -1,0 +1,115 @@
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import axios from 'axios';
+
+// Định nghĩa kiểu dữ liệu cho User
+interface User {
+    id: number;
+    username: string;
+    email: string;
+    full_name: string;
+    avatar: string;
+}
+
+// Định nghĩa kiểu dữ liệu cho AuthContext
+interface AuthContextType {
+    user: User | null;
+    loading: boolean;
+    login: (token: string, userData: User) => void;
+    logout: () => void;
+}
+
+// Tạo context với giá trị mặc định là null
+const AuthContext = createContext<AuthContextType | null>(null);
+
+// Định nghĩa props cho AuthProvider
+interface AuthProviderProps {
+    children: ReactNode;
+}
+
+// Component AuthProvider để bao bọc ứng dụng của bạn
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+    // Sửa lỗi: Lấy thông tin người dùng từ localStorage ngay khi component được tạo
+    const [user, setUser] = useState<User | null>(() => {
+      try {
+        const storedUser = localStorage.getItem('currentUser');
+        return storedUser ? JSON.parse(storedUser) : null;
+      } catch (error) {
+        console.error("Failed to parse user from localStorage", error);
+        return null;
+      }
+    });
+
+    const [loading, setLoading] = useState(true);
+
+    // Hàm này sẽ được gọi khi bạn đăng nhập thành công
+    const login = (token: string, userData: User) => {
+        localStorage.setItem('accessToken', token);
+        localStorage.setItem('currentUser', JSON.stringify(userData));
+        setUser(userData);
+    };
+
+    // Hàm này sẽ được gọi khi bạn đăng xuất
+    const logout = () => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('currentUser');
+        setUser(null);
+    };
+
+    // Hàm này để lấy thông tin người dùng từ API, sử dụng khi tải lại trang
+    const fetchUser = async (token: string) => {
+        if (!token) {
+            setUser(null);
+            setLoading(false);
+            return;
+        }
+
+        try {
+            // Gọi API để lấy thông tin người dùng
+            const response = await axios.get('http://localhost:3000/api/auth/me', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.status === 200) {
+                const userData: User = response.data;
+                setUser(userData);
+            } else {
+                // Nếu token không hợp lệ, xóa nó đi
+                logout();
+            }
+        } catch (error) {
+            console.error('Lỗi khi lấy thông tin người dùng:', error);
+            logout();
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        const token = localStorage.getItem('accessToken');
+        // Sửa lỗi: Chỉ gọi fetchUser nếu chưa có thông tin người dùng
+        if (token) {
+            fetchUser(token);
+        } else {
+            setLoading(false);
+        }
+    }, []);
+
+    const value = { user, loading, login, logout };
+
+    return (
+        <AuthContext.Provider value={value}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
+
+// Custom hook để sử dụng AuthContext dễ dàng hơn
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
+};

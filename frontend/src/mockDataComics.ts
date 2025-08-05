@@ -1,0 +1,88 @@
+// src/mockDataComics.ts
+
+export const comicDetails = [
+  {
+    id: 1,
+    title: "Hoàng Tử Bóng Tối",
+    author: "Kim Min-jun",
+    chapters: 85,
+    views: "2.1M",
+    rating: 4.9,
+    status: "Đang cập nhật",
+    genres: ["Hành động"],
+    origin: "manhwa",
+    description: "Trong thế giới nơi ánh sáng và bóng tối đối kháng, một hoàng tử trẻ phải học cách sử dụng sức mạnh bóng tối để bảo vệ vương quốc.",
+    lastUpdate: "1 giờ trước",
+    coverUrl: "https://readdy.ai/api/search-image?query=manga%20manhwa%20comic%20book%20cover%20for%20Ho%C3%A0ng%20T%E1%BB%AD%20B%C3%B3ng%20T%E1%BB%91i%20action%20style%2C%20anime%20art%20style%2C%20dynamic%20character%20design%2C%20vibrant%20colors%2C%20professional%20comic%20cover%20illustration%2C%20manhwa%20aesthetic&width=128&height=180&seq=comics-1&orientation=portrait"
+  },
+  {
+    id: 2,
+    title: "Nữ Hoàng Băng Giá",
+    author: "Park So-young",
+    chapters: 120,
+    views: "1.8M",
+    rating: 4.7,
+    status: "Hoàn thành",
+    genres: ["Fantasy"],
+    origin: "manhwa",
+    description: "Câu chuyện về một nàng công chúa với sức mạnh băng giá tuyệt đối trong hành trình tìm lại ngôi vị rightful của mình.",
+    lastUpdate: "2 ngày trước",
+    coverUrl: "https://readdy.ai/api/search-image?query=manga%20manhwa%20comic%20book%20cover%20for%20N%E1%BB%AF%20Ho%C3%A0ng%20B%C4%83ng%20Gi%C3%A1%20fantasy%20style%2C%20anime%20art%20style%2C%20dynamic%20character%20design%2C%20vibrant%20colors%2C%20professional%20comic%20cover%20illustration%2C%20manhwa%20aesthetic&width=128&height=180&seq=comics-2&orientation=portrait"
+  },
+  {
+    id: 3,
+    title: "Thần Kiếm Truyền Thuyết",
+    author: "Tanaka Hiroshi",
+    chapters: 200,
+    views: "2.5M",
+    rating: 4.8,
+    status: "Đang cập nhật",
+    genres: ["Phiêu lưu"],
+    origin: "manga",
+    description: "Cuộc phiêu lưu tìm kiếm thanh thần kiếm huyền thoại có thể thay đổi vận mệnh thế giới.",
+    lastUpdate: "3 giờ trước",
+    coverUrl: "https://readdy.ai/api/search-image?query=manga%20manhwa%20comic%20book%20cover%20for%20Th%E1%BA%A7n%20Ki%E1%BA%BFm%20Truy%E1%BB%81n%20Thuy%E1%BA%BFt%20adventure%20style%2C%20anime%20art%20style%2C%20dynamic%20character%20design%2C%20vibrant%20colors%2C%20professional%20comic%20cover%20illustration%2C%20manga%20aesthetic&width=128&height=180&seq=comics-3&orientation=portrait"
+  },
+  {
+    id: 4,
+    title: "Tình Yêu Học Viện",
+    author: "Choi Ji-hye",
+    chapters: 65,
+    views: "1.3M",
+    rating: 4.5,
+    status: "Đang cập nhật",
+    genres: ["Romance"],
+    origin: "manhwa",
+    description: "Chuyện tình ngọt ngào tại học viện danh giá với những tình tiết lãng mạn đầy bất ngờ.",
+    lastUpdate: "5 giờ trước",
+    coverUrl: "https://readdy.ai/api/search-image?query=manga%20manhwa%20comic%20book%20cover%20for%20T%C3%ACnh%20Y%C3%AAu%20H%E1%BB%8Dc%20Vi%E1%BB%87n%20romance%20style%2C%20anime%20art%20style%2C%20dynamic%20character%20design%2C%20vibrant%20colors%2C%20professional%20comic%20cover%20illustration%2C%20manhwa%20aesthetic&width=128&height=180&seq=comics-4&orientation=portrait"
+  },
+  {
+    id: 5,
+    title: "Đại Chiến Quái Vật",
+    author: "Li Wei",
+    chapters: 156,
+    views: "1.9M",
+    rating: 4.6,
+    status: "Đang cập nhật",
+    genres: ["Hành động"],
+    origin: "manhua",
+    description: "Nhân loại đấu tranh sinh tồn trước cuộc xâm lăng của những quái vật khổng lồ từ chiều không gian khác.",
+    lastUpdate: "2 giờ trước",
+    coverUrl: "https://readdy.ai/api/search-image?query=manga%20manhwa%20comic%20book%20cover%20for%20%C4%90%E1%BA%A1i%20Chi%E1%BA%BFn%20Qu%C3%A1i%20V%E1%BA%ADt%20action%20style%2C%20anime%20art%20style%2C%20dynamic%20character%20design%2C%20vibrant%20colors%2C%20professional%20comic%20cover%20illustration%2C%20manhua%20aesthetic&width=128&height=180&seq=comics-5&orientation=portrait"
+  },
+  {
+    id: 6,
+    title: "Ninja Hiện Đại",
+    author: "Yamamoto Kenji",
+    chapters: 98,
+    views: "1.4M",
+    rating: 4.4,
+    status: "Đang cập nhật",
+    genres: ["Hài hước"],
+    origin: "manga",
+    description: "Câu chuyện hài hước về một ninja cổ điển cố gắng thích nghi với cuộc sống hiện đại.",
+    lastUpdate: "4 giờ trước",
+    coverUrl: "https://readdy.ai/api/search-image?query=manga%20manhwa%20comic%20book%20cover%20for%20Ninja%20Hi%E1%BB%87n%20%C4%90%E1%BA%A1i%20comedy%20style%2C%20anime%20art%20style%2C%20dynamic%20character%20design%2C%20vibrant%20colors%2C%20professional%20comic%20cover%20illustration%2C%20manga%20aesthetic&width=128&height=180&seq=comics-6&orientation=portrait"
+  },
+];

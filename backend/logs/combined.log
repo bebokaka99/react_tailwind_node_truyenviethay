@@ -1,0 +1,249 @@
+[2025-08-02 02:14:36] info: Server is running on http://localhost:3000
+[2025-08-02 02:14:37] info: GET /api/truyen/public?page=1&limit=20&sort_by=thoi_gian_cap_nhat&order=DESC&keyword=
+[2025-08-02 02:14:38] info: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-02 02:14:38] warn: 404 Not Found: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-02 02:14:43] info: POST /api/auth/dang-nhap
+[2025-08-02 02:14:48] info: POST /api/auth/dang-nhap
+[2025-08-02 02:14:50] info: GET /api/truyen/public?page=1&limit=20&sort_by=thoi_gian_cap_nhat&order=DESC&keyword=
+[2025-08-02 02:14:50] info: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-02 02:14:50] warn: 404 Not Found: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-02 02:14:52] info: GET /api/user/me
+[2025-08-02 02:14:52] info: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075692319
+[2025-08-02 02:14:52] warn: 404 Not Found: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075692319
+[2025-08-02 02:14:56] info: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075692319
+[2025-08-02 02:14:56] warn: 404 Not Found: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075692319
+[2025-08-02 02:14:56] info: GET /api/truyen/public?page=1&limit=20&sort_by=thoi_gian_cap_nhat&order=DESC&keyword=
+[2025-08-02 02:14:56] info: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-02 02:14:56] warn: 404 Not Found: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-02 02:14:58] info: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075692319
+[2025-08-02 02:14:58] warn: 404 Not Found: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075692319
+[2025-08-02 02:14:59] info: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075692319
+[2025-08-02 02:14:59] warn: 404 Not Found: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075692319
+[2025-08-02 02:14:59] info: GET /api/user/me
+[2025-08-02 02:14:59] info: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075699855
+[2025-08-02 02:14:59] warn: 404 Not Found: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075699855
+[2025-08-02 02:15:01] info: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075699855
+[2025-08-02 02:15:01] warn: 404 Not Found: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075699855
+[2025-08-02 02:15:01] info: GET /api/user/me
+[2025-08-02 02:15:01] info: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075701416
+[2025-08-02 02:15:01] warn: 404 Not Found: GET /uploads_img/avatar/avatar-21-1753486931860-561559051.jpg?1754075701416
+[2025-08-02 02:15:45] info: POST /api/user/me
+[2025-08-02 02:15:46] info: GET /api/user/me
+[2025-08-02 02:18:38] info: GET /api/user/me
+[2025-08-02 02:18:38] info: GET /api/user/me
+[2025-08-02 02:18:41] info: GET /api/admin/users?page=1&limit=10&search=&role=&status=&sortBy=id&sortOrder=asc
+[2025-08-02 02:18:43] info: GET /api/user/me
+[2025-08-02 02:18:44] info: GET /api/truyen?page=1&limit=10&trang_thai_kiem_duyet=&keyword=
+[2025-08-02 02:18:44] info: GET /api/theloai/
+[2025-08-02 02:18:46] info: GET /api/truyen/public?page=1&limit=20&sort_by=thoi_gian_cap_nhat&order=DESC&keyword=
+[2025-08-02 02:18:46] info: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-02 02:18:46] warn: 404 Not Found: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-02 02:23:22] info: Server is running on http://localhost:3000
+[2025-08-02 02:27:29] info: POST /api/auth/dang-nhap
+[2025-08-02 02:27:33] info: POST /api/auth/dang-nhap
+[2025-08-02 02:27:35] info: GET /api/truyen/public?page=1&limit=20&sort_by=thoi_gian_cap_nhat&order=DESC&keyword=
+[2025-08-02 02:27:35] info: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-02 02:27:35] warn: 404 Not Found: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-02 02:27:36] info: GET /api/user/me
+[2025-08-02 02:29:01] info: GET /api/user/me
+[2025-08-02 02:29:01] info: GET /api/user/me
+[2025-08-02 02:31:27] info: GET /api/truyen/public?page=1&limit=20&sort_by=thoi_gian_cap_nhat&order=DESC&keyword=
+[2025-08-02 02:31:28] info: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-02 02:31:28] warn: 404 Not Found: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-05 13:25:38] info: Server is running on http://localhost:3000
+[2025-08-05 13:25:58] info: POST /auth/dang-ky
+[2025-08-05 13:25:58] warn: 404 Not Found: POST /auth/dang-ky
+[2025-08-05 13:28:42] info: Server is running on http://localhost:3000
+[2025-08-05 13:29:12] info: POST /api/auth/dang-ky
+[2025-08-05 13:35:25] info: POST /api/auth/dang-ky
+[2025-08-05 13:43:49] info: POST /api/auth/dang-nhap
+[2025-08-05 13:43:52] info: POST /api/auth/dang-nhap
+[2025-08-05 13:44:38] info: POST /api/auth/dang-nhap
+[2025-08-05 14:03:21] info: GET /Logo.png
+[2025-08-05 14:03:21] warn: 404 Not Found: GET /Logo.png
+[2025-08-05 14:03:21] info: GET /favicon.ico
+[2025-08-05 14:03:21] warn: 404 Not Found: GET /favicon.ico
+[2025-08-05 14:04:07] info: Server is running on http://localhost:3000
+[2025-08-05 14:12:34] info: POST /api/auth/dang-nhap
+[2025-08-05 14:12:36] info: POST /api/auth/dang-nhap
+[2025-08-05 14:24:10] info: POST /api/auth/dang-nhap
+[2025-08-05 14:28:33] info: Server is running on http://localhost:3000
+[2025-08-05 14:28:54] info: POST /api/auth/dang-nhap
+[2025-08-05 14:31:26] info: POST /api/auth/dang-nhap
+[2025-08-05 14:31:29] info: POST /api/auth/dang-nhap
+[2025-08-05 14:32:22] info: Server is running on http://localhost:3000
+[2025-08-05 14:32:38] info: POST /api/auth/dang-nhap
+[2025-08-05 14:32:39] info: POST /api/auth/dang-nhap
+[2025-08-05 14:32:39] info: GET /api/auth/me
+[2025-08-05 14:40:40] info: GET /api/auth/me
+[2025-08-05 14:40:40] info: GET /api/auth/me
+[2025-08-05 14:43:07] info: POST /api/auth/dang-nhap
+[2025-08-05 14:43:09] info: POST /api/auth/dang-nhap
+[2025-08-05 14:43:11] info: GET /api/auth/me
+[2025-08-05 14:43:11] info: GET /api/auth/me
+[2025-08-05 14:44:23] info: GET /api/auth/me
+[2025-08-05 14:44:23] info: GET /api/auth/me
+[2025-08-05 14:46:56] info: POST /api/auth/dang-nhap
+[2025-08-05 14:49:56] info: Server is running on http://localhost:3000
+[2025-08-05 14:50:25] info: POST /api/auth/dang-nhap
+[2025-08-05 14:50:27] info: POST /api/auth/dang-nhap
+[2025-08-05 14:51:40] info: POST /api/auth/dang-nhap
+[2025-08-05 15:01:17] info: POST /api/auth/dang-nhap
+[2025-08-05 15:01:49] info: GET /api/auth/me
+[2025-08-05 15:01:49] info: GET /api/auth/me
+[2025-08-05 15:02:02] info: Server is running on http://localhost:3000
+[2025-08-05 15:06:40] info: GET /api/auth/me
+[2025-08-05 15:06:40] info: GET /api/auth/me
+[2025-08-05 15:06:58] info: GET /api/auth/me
+[2025-08-05 15:06:58] info: GET /api/auth/me
+[2025-08-05 15:08:26] info: GET /api/auth/me
+[2025-08-05 15:08:26] info: GET /api/auth/me
+[2025-08-05 15:08:36] info: GET /api/auth/me
+[2025-08-05 15:08:36] info: GET /api/auth/me
+[2025-08-05 15:08:52] info: POST /api/auth/dang-nhap
+[2025-08-05 18:28:15] info: Server is running on http://localhost:3000
+[2025-08-05 18:34:44] info: POST /api/auth/dang-nhap
+[2025-08-05 18:34:53] info: POST /api/auth/dang-nhap
+[2025-08-05 18:34:54] info: POST /api/auth/dang-nhap
+[2025-08-05 18:35:35] info: POST /api/auth/dang-nhap
+[2025-08-05 18:36:37] info: GET /api/auth/me
+[2025-08-05 18:36:37] info: GET /api/auth/me
+[2025-08-05 18:36:41] info: GET /api/auth/me
+[2025-08-05 18:36:41] info: GET /api/auth/me
+[2025-08-05 18:37:41] info: GET /api/auth/me
+[2025-08-05 18:37:41] info: GET /api/auth/me
+[2025-08-05 18:37:45] info: GET /api/auth/me
+[2025-08-05 18:37:45] info: GET /api/auth/me
+[2025-08-05 18:37:52] info: GET /api/auth/me
+[2025-08-05 18:37:52] info: GET /api/auth/me
+[2025-08-05 18:37:53] info: GET /api/auth/me
+[2025-08-05 18:37:53] info: GET /api/auth/me
+[2025-08-05 18:38:06] info: GET /api/auth/me
+[2025-08-05 18:38:06] info: GET /api/auth/me
+[2025-08-05 18:38:11] info: GET /api/auth/me
+[2025-08-05 18:38:11] info: GET /api/auth/me
+[2025-08-05 18:39:05] info: GET /api/auth/me
+[2025-08-05 18:39:05] info: GET /api/auth/me
+[2025-08-05 18:39:15] info: GET /api/auth/me
+[2025-08-05 18:39:15] info: GET /api/auth/me
+[2025-08-05 18:39:24] info: GET /api/auth/me
+[2025-08-05 18:39:24] info: GET /api/auth/me
+[2025-08-05 18:39:26] info: GET /api/auth/me
+[2025-08-05 18:39:26] info: GET /api/auth/me
+[2025-08-05 18:39:31] info: GET /api/auth/me
+[2025-08-05 18:39:31] info: GET /api/auth/me
+[2025-08-05 18:40:16] info: GET /api/auth/me
+[2025-08-05 18:40:16] info: GET /api/auth/me
+[2025-08-05 18:40:47] info: GET /api/auth/me
+[2025-08-05 18:40:47] info: GET /api/auth/me
+[2025-08-05 18:40:49] info: GET /api/auth/me
+[2025-08-05 18:40:49] info: GET /api/auth/me
+[2025-08-05 18:41:14] info: GET /api/auth/me
+[2025-08-05 18:41:14] info: GET /api/auth/me
+[2025-08-05 18:41:37] info: GET /api/auth/me
+[2025-08-05 18:41:38] info: GET /api/auth/me
+[2025-08-05 18:41:39] info: GET /api/auth/me
+[2025-08-05 18:41:39] info: GET /api/auth/me
+[2025-08-05 18:42:47] info: GET /api/auth/dang-nhap
+[2025-08-05 18:42:47] warn: 404 Not Found: GET /api/auth/dang-nhap
+[2025-08-05 18:45:28] info: GET /api/auth/me
+[2025-08-05 18:45:28] info: GET /api/auth/me
+[2025-08-05 18:46:25] info: GET /api/auth/me
+[2025-08-05 18:46:25] info: GET /api/auth/me
+[2025-08-05 18:46:48] info: GET /api/auth/me
+[2025-08-05 18:46:48] info: GET /api/auth/me
+[2025-08-05 18:47:16] info: GET /api/auth/me
+[2025-08-05 18:47:16] info: GET /api/auth/me
+[2025-08-05 18:49:33] info: Server is running on http://localhost:3000
+[2025-08-05 18:49:45] info: GET /api/auth/me
+[2025-08-05 18:49:45] info: GET /api/auth/me
+[2025-08-05 18:51:05] info: Server is running on http://localhost:3000
+[2025-08-05 18:51:11] info: GET /api/auth/me
+[2025-08-05 18:51:11] info: GET /api/auth/me
+[2025-08-05 18:51:38] info: Server is running on http://localhost:3000
+[2025-08-05 18:51:42] info: GET /api/auth/me
+[2025-08-05 18:51:42] info: GET /api/auth/me
+[2025-08-05 18:53:20] info: GET /api/auth/me
+[2025-08-05 18:53:20] info: GET /api/auth/me
+[2025-08-05 18:54:02] info: GET /api/auth/me
+[2025-08-05 18:54:02] info: GET /api/auth/me
+[2025-08-05 18:56:34] info: GET /api/auth/me
+[2025-08-05 18:56:34] info: GET /api/auth/me
+[2025-08-05 18:56:59] info: GET /api/auth/me
+[2025-08-05 18:56:59] info: GET /api/auth/me
+[2025-08-05 18:58:04] info: GET /api/auth/me
+[2025-08-05 18:58:04] info: GET /api/auth/me
+[2025-08-05 18:59:52] info: GET /api/auth/me
+[2025-08-05 18:59:52] info: GET /api/auth/me
+[2025-08-05 19:03:01] info: GET /api/auth/me
+[2025-08-05 19:03:01] info: GET /api/auth/me
+[2025-08-05 19:06:49] info: GET /api/auth/me
+[2025-08-05 19:06:49] info: GET /api/auth/me
+[2025-08-05 19:06:56] info: Server is running on http://localhost:3000
+[2025-08-05 19:06:56] info: GET /api/auth/me
+[2025-08-05 19:06:56] info: GET /api/auth/me
+[2025-08-05 19:06:58] info: GET /api/auth/me
+[2025-08-05 19:06:58] info: GET /api/auth/me
+[2025-08-05 19:06:58] info: GET /api/auth/me
+[2025-08-05 19:06:58] info: GET /api/auth/me
+[2025-08-05 19:06:58] info: GET /api/auth/me
+[2025-08-05 19:06:58] info: GET /api/auth/me
+[2025-08-05 19:06:59] info: GET /api/auth/me
+[2025-08-05 19:06:59] info: GET /api/auth/me
+[2025-08-05 19:07:01] info: GET /api/auth/me
+[2025-08-05 19:07:01] info: GET /api/auth/me
+[2025-08-05 19:07:04] info: GET /api/auth/me
+[2025-08-05 19:07:04] info: GET /api/auth/me
+[2025-08-05 19:07:04] info: GET /api/auth/me
+[2025-08-05 19:07:04] info: GET /api/auth/me
+[2025-08-05 19:07:08] info: GET /api/auth/me
+[2025-08-05 19:07:08] info: GET /api/auth/me
+[2025-08-05 19:09:19] info: GET /api/auth/me
+[2025-08-05 19:09:19] info: GET /api/auth/me
+[2025-08-05 19:11:37] info: GET /api/auth/me
+[2025-08-05 19:11:37] info: GET /api/auth/me
+[2025-08-05 19:11:55] info: GET /api/auth/me
+[2025-08-05 19:11:55] info: GET /api/auth/me
+[2025-08-05 19:11:58] info: GET /api/auth/me
+[2025-08-05 19:11:58] info: GET /api/auth/me
+[2025-08-05 19:12:04] info: GET /api/auth/me
+[2025-08-05 19:12:04] info: GET /api/auth/me
+[2025-08-05 19:12:06] info: GET /api/auth/me
+[2025-08-05 19:12:06] info: GET /api/auth/me
+[2025-08-05 19:12:10] info: GET /api/auth/me
+[2025-08-05 19:12:10] info: GET /api/auth/me
+[2025-08-05 19:12:58] info: GET /api/auth/me
+[2025-08-05 19:12:58] info: GET /api/auth/me
+[2025-08-06 04:10:22] info: Server is running on http://localhost:3000
+[2025-08-06 04:10:25] info: GET /api/auth/me
+[2025-08-06 04:10:25] info: GET /api/auth/me
+[2025-08-06 04:13:15] info: POST /api/auth/dang-nhap
+[2025-08-06 04:13:20] info: POST /api/auth/dang-nhap
+[2025-08-06 04:13:21] info: POST /api/auth/dang-nhap
+[2025-08-06 04:13:21] info: POST /api/auth/dang-nhap
+[2025-08-06 04:13:21] info: POST /api/auth/dang-nhap
+[2025-08-06 04:13:23] info: POST /api/auth/dang-nhap
+[2025-08-06 04:13:24] info: POST /api/auth/dang-nhap
+[2025-08-06 04:13:24] info: POST /api/auth/dang-nhap
+[2025-08-06 04:13:31] info: POST /api/auth/dang-nhap
+[2025-08-06 04:13:43] info: POST /api/auth/dang-nhap
+[2025-08-06 04:13:59] info: Server is running on http://localhost:3000
+[2025-08-06 04:14:03] info: POST /api/auth/dang-nhap
+[2025-08-06 04:16:56] info: GET /api/auth/me
+[2025-08-06 04:16:56] info: GET /api/auth/me
+[2025-08-06 04:24:05] info: GET /api/auth/me
+[2025-08-06 04:24:05] info: GET /api/auth/me
+[2025-08-06 04:25:47] info: GET /api/auth/me
+[2025-08-06 04:25:47] info: GET /api/auth/me
+[2025-08-06 04:26:39] info: GET /api/auth/me
+[2025-08-06 04:26:39] info: GET /api/auth/me
+[2025-08-06 04:26:44] info: GET /api/auth/me
+[2025-08-06 04:26:44] info: GET /api/auth/me
+[2025-08-06 04:26:46] info: GET /api/auth/me
+[2025-08-06 04:26:46] info: GET /api/auth/me
+[2025-08-06 04:28:23] info: GET /api/auth/me
+[2025-08-06 04:28:23] info: GET /api/auth/me
+[2025-08-06 04:36:59] info: Server is running on http://localhost:3000
+[2025-08-06 04:37:00] info: POST /api/auth/dang-nhap
+[2025-08-06 04:40:16] info: GET /api/auth/me
+[2025-08-06 04:40:16] info: GET /api/auth/me
