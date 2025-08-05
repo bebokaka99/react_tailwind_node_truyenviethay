@@ -247,3 +247,225 @@
 [2025-08-06 04:37:00] info: POST /api/auth/dang-nhap
 [2025-08-06 04:40:16] info: GET /api/auth/me
 [2025-08-06 04:40:16] info: GET /api/auth/me
+[2025-08-06 05:00:38] info: Server is running on http://localhost:3000
+[2025-08-06 05:02:31] info: Server is running on http://localhost:3000
+[2025-08-06 05:02:35] info: GET /api/home
+[2025-08-06 05:02:35] warn: 404 Not Found: GET /api/home
+[2025-08-06 05:02:36] info: GET /favicon.ico
+[2025-08-06 05:02:36] warn: 404 Not Found: GET /favicon.ico
+[2025-08-06 05:04:35] info: GET /api/truyen/home
+[2025-08-06 05:10:42] info: GET /api/auth/me
+[2025-08-06 05:10:42] info: GET /api/auth/me
+[2025-08-06 05:12:18] info: GET /api/auth/me
+[2025-08-06 05:12:18] info: GET /api/auth/me
+[2025-08-06 05:14:30] info: GET /api/truyen/home
+[2025-08-06 05:14:32] info: GET /api/truyen/home
+[2025-08-06 05:14:32] info: GET /api/auth/me
+[2025-08-06 05:14:32] info: GET /api/auth/me
+[2025-08-06 05:14:32] info: GET /api/truyen/home
+[2025-08-06 05:15:00] info: GET /api/truyen/home
+[2025-08-06 05:15:03] info: GET /api/truyen/home
+[2025-08-06 05:15:03] info: GET /api/auth/me
+[2025-08-06 05:15:03] info: GET /api/auth/me
+[2025-08-06 05:15:03] info: GET /api/truyen/home
+[2025-08-06 05:15:51] info: GET /api/truyen
+[2025-08-06 05:15:56] info: GET /api/truyen/home
+[2025-08-06 05:16:03] info: GET /api/truyen/home/home
+[2025-08-06 05:16:03] warn: 404 Not Found: GET /api/truyen/home/home
+[2025-08-06 05:16:03] info: GET /api/truyen/home/home
+[2025-08-06 05:16:03] warn: 404 Not Found: GET /api/truyen/home/home
+[2025-08-06 05:16:03] info: GET /api/auth/me
+[2025-08-06 05:16:03] info: GET /api/auth/me
+[2025-08-06 05:16:14] info: Server is running on http://localhost:3000
+[2025-08-06 05:16:17] info: GET /api/truyen/home/home
+[2025-08-06 05:16:17] warn: 404 Not Found: GET /api/truyen/home/home
+[2025-08-06 05:16:17] info: GET /api/auth/me
+[2025-08-06 05:16:17] info: GET /api/truyen/home/home
+[2025-08-06 05:16:17] warn: 404 Not Found: GET /api/truyen/home/home
+[2025-08-06 05:16:17] info: GET /api/auth/me
+[2025-08-06 05:16:22] info: GET /api/truyen/home
+[2025-08-06 05:16:22] info: GET /api/auth/me
+[2025-08-06 05:16:22] info: GET /api/auth/me
+[2025-08-06 05:16:22] info: GET /api/truyen/home
+[2025-08-06 05:17:59] info: GET /api/truyen/home
+[2025-08-06 05:17:59] info: GET /api/auth/me
+[2025-08-06 05:17:59] info: GET /api/auth/me
+[2025-08-06 05:17:59] info: GET /api/truyen/home
+[2025-08-06 05:21:58] info: GET /api/truyen/home
+[2025-08-06 05:21:58] info: GET /api/auth/me
+[2025-08-06 05:21:58] info: GET /api/auth/me
+[2025-08-06 05:21:58] info: GET /api/truyen/home
+[2025-08-06 05:22:08] info: Server is running on http://localhost:3000
+[2025-08-06 05:22:14] info: GET /api/truyen/home
+[2025-08-06 05:22:14] info: GET /api/auth/me
+[2025-08-06 05:22:14] info: GET /api/auth/me
+[2025-08-06 05:22:14] info: GET /api/truyen/home
+[2025-08-06 05:26:55] info: Server is running on http://localhost:3000
+[2025-08-06 05:27:04] info: GET /api/truyen/home
+[2025-08-06 05:27:04] info: GET /api/auth/me
+[2025-08-06 05:27:04] info: GET /api/auth/me
+[2025-08-06 05:27:04] info: GET /api/truyen/home
+[2025-08-06 05:28:03] info: GET /api/truyen/home
+[2025-08-06 05:28:03] info: GET /api/auth/me
+[2025-08-06 05:28:03] info: GET /api/auth/me
+[2025-08-06 05:28:03] info: GET /api/truyen/home
+[2025-08-06 05:28:04] info: GET /api/truyen/home
+[2025-08-06 05:28:04] info: GET /api/auth/me
+[2025-08-06 05:28:04] info: GET /api/auth/me
+[2025-08-06 05:28:04] info: GET /api/truyen/home
+[2025-08-06 05:28:05] info: GET /api/truyen/home
+[2025-08-06 05:28:05] info: GET /api/auth/me
+[2025-08-06 05:28:05] info: GET /api/auth/me
+[2025-08-06 05:28:05] info: GET /api/truyen/home
+[2025-08-06 05:28:08] info: GET /api/auth/me
+[2025-08-06 05:28:08] info: GET /api/auth/me
+[2025-08-06 05:28:09] info: GET /api/truyen/home
+[2025-08-06 05:28:09] info: GET /api/truyen/home
+[2025-08-06 05:28:10] info: GET /api/truyen/home
+[2025-08-06 05:28:10] info: GET /api/auth/me
+[2025-08-06 05:28:10] info: GET /api/auth/me
+[2025-08-06 05:28:10] info: GET /api/truyen/home
+[2025-08-06 05:28:10] info: GET /api/truyen/home
+[2025-08-06 05:28:10] info: GET /api/auth/me
+[2025-08-06 05:28:10] info: GET /api/auth/me
+[2025-08-06 05:28:10] info: GET /api/truyen/home
+[2025-08-06 05:28:11] info: GET /api/auth/me
+[2025-08-06 05:28:11] info: GET /api/truyen/home
+[2025-08-06 05:28:11] info: GET /api/auth/me
+[2025-08-06 05:28:11] info: GET /api/truyen/home
+[2025-08-06 05:28:11] info: GET /api/truyen/home
+[2025-08-06 05:28:11] info: GET /api/auth/me
+[2025-08-06 05:28:11] info: GET /api/auth/me
+[2025-08-06 05:28:11] info: GET /api/truyen/home
+[2025-08-06 05:28:12] info: GET /api/auth/me
+[2025-08-06 05:28:12] info: GET /api/truyen/home
+[2025-08-06 05:28:41] info: GET /uploads_img/uploads/cover.jpg
+[2025-08-06 05:28:41] warn: 404 Not Found: GET /uploads_img/uploads/cover.jpg
+[2025-08-06 05:28:41] info: GET /uploads_img/truyen_1744777698593.jpeg
+[2025-08-06 05:28:41] warn: 404 Not Found: GET /uploads_img/truyen_1744777698593.jpeg
+[2025-08-06 05:28:41] info: GET /uploads_img/truyen_1744777471901.jpg
+[2025-08-06 05:28:41] warn: 404 Not Found: GET /uploads_img/truyen_1744777471901.jpg
+[2025-08-06 05:28:41] info: GET /uploads_img/truyen_1744787460372.jpeg
+[2025-08-06 05:28:41] warn: 404 Not Found: GET /uploads_img/truyen_1744787460372.jpeg
+[2025-08-06 05:28:41] info: GET /uploads_img/truyen_1744791821329.jpeg
+[2025-08-06 05:28:41] warn: 404 Not Found: GET /uploads_img/truyen_1744791821329.jpeg
+[2025-08-06 05:28:41] info: GET /uploads_img/bia_truyen_1745009453479.jpg
+[2025-08-06 05:28:41] warn: 404 Not Found: GET /uploads_img/bia_truyen_1745009453479.jpg
+[2025-08-06 05:28:41] info: GET /uploads_img/truyen_1752562846817.jpg
+[2025-08-06 05:28:41] warn: 404 Not Found: GET /uploads_img/truyen_1752562846817.jpg
+[2025-08-06 05:28:41] info: GET /uploads_img/truyen_1752562899920.jpg
+[2025-08-06 05:28:41] warn: 404 Not Found: GET /uploads_img/truyen_1752562899920.jpg
+[2025-08-06 05:28:41] info: GET /uploads_img/truyen_1753067209299.jpg
+[2025-08-06 05:28:41] warn: 404 Not Found: GET /uploads_img/truyen_1753067209299.jpg
+[2025-08-06 05:28:41] info: GET /uploads_img/truyen_1752639849876.jpg
+[2025-08-06 05:28:41] warn: 404 Not Found: GET /uploads_img/truyen_1752639849876.jpg
+[2025-08-06 05:28:41] info: GET /uploads_img/truyen_1752639613712.jpg
+[2025-08-06 05:28:41] warn: 404 Not Found: GET /uploads_img/truyen_1752639613712.jpg
+[2025-08-06 05:28:41] info: GET /uploads_img/truyen_1752638891075.jpg
+[2025-08-06 05:28:41] warn: 404 Not Found: GET /uploads_img/truyen_1752638891075.jpg
+[2025-08-06 05:28:46] info: GET /api/truyen/home
+[2025-08-06 05:28:46] info: GET /api/auth/me
+[2025-08-06 05:28:46] info: GET /api/auth/me
+[2025-08-06 05:28:46] info: GET /api/truyen/home
+[2025-08-06 05:28:46] info: GET /uploads_img/uploads/cover.jpg
+[2025-08-06 05:28:46] warn: 404 Not Found: GET /uploads_img/uploads/cover.jpg
+[2025-08-06 05:28:46] info: GET /uploads_img/truyen_1744777698593.jpeg
+[2025-08-06 05:28:46] warn: 404 Not Found: GET /uploads_img/truyen_1744777698593.jpeg
+[2025-08-06 05:28:46] info: GET /uploads_img/truyen_1744787460372.jpeg
+[2025-08-06 05:28:46] warn: 404 Not Found: GET /uploads_img/truyen_1744787460372.jpeg
+[2025-08-06 05:28:46] info: GET /uploads_img/truyen_1744791821329.jpeg
+[2025-08-06 05:28:46] warn: 404 Not Found: GET /uploads_img/truyen_1744791821329.jpeg
+[2025-08-06 05:28:46] info: GET /uploads_img/truyen_1744777471901.jpg
+[2025-08-06 05:28:46] warn: 404 Not Found: GET /uploads_img/truyen_1744777471901.jpg
+[2025-08-06 05:28:46] info: GET /uploads_img/bia_truyen_1745009453479.jpg
+[2025-08-06 05:28:46] warn: 404 Not Found: GET /uploads_img/bia_truyen_1745009453479.jpg
+[2025-08-06 05:28:46] info: GET /uploads_img/truyen_1752562846817.jpg
+[2025-08-06 05:28:46] warn: 404 Not Found: GET /uploads_img/truyen_1752562846817.jpg
+[2025-08-06 05:28:46] info: GET /uploads_img/truyen_1753067209299.jpg
+[2025-08-06 05:28:46] warn: 404 Not Found: GET /uploads_img/truyen_1753067209299.jpg
+[2025-08-06 05:28:46] info: GET /uploads_img/truyen_1752562899920.jpg
+[2025-08-06 05:28:46] warn: 404 Not Found: GET /uploads_img/truyen_1752562899920.jpg
+[2025-08-06 05:28:46] info: GET /uploads_img/truyen_1752639849876.jpg
+[2025-08-06 05:28:46] warn: 404 Not Found: GET /uploads_img/truyen_1752639849876.jpg
+[2025-08-06 05:28:46] info: GET /uploads_img/truyen_1752638891075.jpg
+[2025-08-06 05:28:46] warn: 404 Not Found: GET /uploads_img/truyen_1752638891075.jpg
+[2025-08-06 05:28:46] info: GET /uploads_img/truyen_1752639613712.jpg
+[2025-08-06 05:28:46] warn: 404 Not Found: GET /uploads_img/truyen_1752639613712.jpg
+[2025-08-06 05:30:27] info: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-06 05:30:27] warn: 404 Not Found: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-06 05:30:28] info: GET /api/truyen/home
+[2025-08-06 05:30:28] info: GET /api/auth/me
+[2025-08-06 05:30:28] info: GET /api/auth/me
+[2025-08-06 05:30:28] info: GET /api/truyen/home
+[2025-08-06 05:30:28] info: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-06 05:30:28] warn: 404 Not Found: GET /uploads_img/bia_truyen/uploads/cover.jpg
+[2025-08-06 05:31:03] info: GET /uploads_img/uploads/cover.jpg
+[2025-08-06 05:31:03] warn: 404 Not Found: GET /uploads_img/uploads/cover.jpg
+[2025-08-06 05:31:03] info: GET /uploads_img/truyen_1744777471901.jpg
+[2025-08-06 05:31:03] warn: 404 Not Found: GET /uploads_img/truyen_1744777471901.jpg
+[2025-08-06 05:31:03] info: GET /uploads_img/truyen_1744777698593.jpeg
+[2025-08-06 05:31:03] warn: 404 Not Found: GET /uploads_img/truyen_1744777698593.jpeg
+[2025-08-06 05:31:03] info: GET /uploads_img/truyen_1744787460372.jpeg
+[2025-08-06 05:31:03] warn: 404 Not Found: GET /uploads_img/truyen_1744787460372.jpeg
+[2025-08-06 05:31:03] info: GET /uploads_img/truyen_1744791821329.jpeg
+[2025-08-06 05:31:03] warn: 404 Not Found: GET /uploads_img/truyen_1744791821329.jpeg
+[2025-08-06 05:31:03] info: GET /uploads_img/bia_truyen_1745009453479.jpg
+[2025-08-06 05:31:03] warn: 404 Not Found: GET /uploads_img/bia_truyen_1745009453479.jpg
+[2025-08-06 05:31:03] info: GET /uploads_img/truyen_1752562846817.jpg
+[2025-08-06 05:31:03] warn: 404 Not Found: GET /uploads_img/truyen_1752562846817.jpg
+[2025-08-06 05:31:03] info: GET /uploads_img/truyen_1752562899920.jpg
+[2025-08-06 05:31:03] warn: 404 Not Found: GET /uploads_img/truyen_1752562899920.jpg
+[2025-08-06 05:31:03] info: GET /uploads_img/truyen_1753067209299.jpg
+[2025-08-06 05:31:03] warn: 404 Not Found: GET /uploads_img/truyen_1753067209299.jpg
+[2025-08-06 05:31:03] info: GET /uploads_img/truyen_1752639849876.jpg
+[2025-08-06 05:31:03] warn: 404 Not Found: GET /uploads_img/truyen_1752639849876.jpg
+[2025-08-06 05:31:03] info: GET /uploads_img/truyen_1752639613712.jpg
+[2025-08-06 05:31:03] warn: 404 Not Found: GET /uploads_img/truyen_1752639613712.jpg
+[2025-08-06 05:31:03] info: GET /uploads_img/truyen_1752638891075.jpg
+[2025-08-06 05:31:03] warn: 404 Not Found: GET /uploads_img/truyen_1752638891075.jpg
+[2025-08-06 05:31:04] info: GET /api/truyen/home
+[2025-08-06 05:31:04] info: GET /api/auth/me
+[2025-08-06 05:31:04] info: GET /api/auth/me
+[2025-08-06 05:31:04] info: GET /api/truyen/home
+[2025-08-06 05:31:04] info: GET /uploads_img/uploads/cover.jpg
+[2025-08-06 05:31:04] warn: 404 Not Found: GET /uploads_img/uploads/cover.jpg
+[2025-08-06 05:31:04] info: GET /uploads_img/truyen_1744777471901.jpg
+[2025-08-06 05:31:04] warn: 404 Not Found: GET /uploads_img/truyen_1744777471901.jpg
+[2025-08-06 05:31:04] info: GET /uploads_img/truyen_1744777698593.jpeg
+[2025-08-06 05:31:04] warn: 404 Not Found: GET /uploads_img/truyen_1744777698593.jpeg
+[2025-08-06 05:31:04] info: GET /uploads_img/truyen_1744787460372.jpeg
+[2025-08-06 05:31:04] warn: 404 Not Found: GET /uploads_img/truyen_1744787460372.jpeg
+[2025-08-06 05:31:04] info: GET /uploads_img/truyen_1744791821329.jpeg
+[2025-08-06 05:31:04] warn: 404 Not Found: GET /uploads_img/truyen_1744791821329.jpeg
+[2025-08-06 05:31:04] info: GET /uploads_img/bia_truyen_1745009453479.jpg
+[2025-08-06 05:31:04] warn: 404 Not Found: GET /uploads_img/bia_truyen_1745009453479.jpg
+[2025-08-06 05:31:04] info: GET /uploads_img/truyen_1752562846817.jpg
+[2025-08-06 05:31:04] warn: 404 Not Found: GET /uploads_img/truyen_1752562846817.jpg
+[2025-08-06 05:31:04] info: GET /uploads_img/truyen_1752562899920.jpg
+[2025-08-06 05:31:04] warn: 404 Not Found: GET /uploads_img/truyen_1752562899920.jpg
+[2025-08-06 05:31:05] info: GET /uploads_img/truyen_1753067209299.jpg
+[2025-08-06 05:31:05] warn: 404 Not Found: GET /uploads_img/truyen_1753067209299.jpg
+[2025-08-06 05:31:05] info: GET /uploads_img/truyen_1752639849876.jpg
+[2025-08-06 05:31:05] warn: 404 Not Found: GET /uploads_img/truyen_1752639849876.jpg
+[2025-08-06 05:31:05] info: GET /uploads_img/truyen_1752639613712.jpg
+[2025-08-06 05:31:05] warn: 404 Not Found: GET /uploads_img/truyen_1752639613712.jpg
+[2025-08-06 05:31:05] info: GET /uploads_img/truyen_1752638891075.jpg
+[2025-08-06 05:31:05] warn: 404 Not Found: GET /uploads_img/truyen_1752638891075.jpg
+[2025-08-06 05:32:56] info: Server is running on http://localhost:3000
+[2025-08-06 05:32:57] info: GET /api/truyen/home
+[2025-08-06 05:32:57] info: GET /api/truyen/home
+[2025-08-06 05:36:19] info: Server is running on http://localhost:3000
+[2025-08-06 05:36:28] info: GET /api/truyen/home
+[2025-08-06 05:36:28] info: GET /api/truyen/home
+[2025-08-06 05:40:53] info: Server is running on http://localhost:3000
+[2025-08-06 05:40:59] info: GET /api/truyen/home
+[2025-08-06 05:40:59] info: GET /api/truyen/home
+[2025-08-06 05:41:02] info: GET /api/truyen/home
+[2025-08-06 05:41:03] info: GET /api/truyen/home
+[2025-08-06 05:42:30] info: Server is running on http://localhost:3000
+[2025-08-06 05:42:37] info: GET /api/truyen/home
+[2025-08-06 05:42:37] info: GET /api/truyen/home
+[2025-08-06 05:47:35] info: GET /api/truyen/home
+[2025-08-06 05:47:35] info: GET /api/truyen/home
+[2025-08-06 05:48:34] info: GET /api/truyen/home
+[2025-08-06 05:48:34] info: GET /api/truyen/home

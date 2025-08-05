@@ -1,6 +1,7 @@
 const StoryModel = require("../models/story.model");
 const storyService = require("../services/story.sevices");
 const generateSlug = require("../ultils/slugify"); 
+const TheLoaiModel = require("../models/category.model");
 
 const getAllStories = async (req, res) => {
   try {
@@ -219,7 +220,41 @@ const getStoriesByUserId = async (req, res) => {
     console.error("Lỗi khi lấy truyện theo user:", err);
     res.status(500).json({ message: "Lỗi server" });
   }
+}
+// Hàm mới: Lấy tất cả dữ liệu cần thiết cho trang chủ
+const getHomePageData = async (req, res) => {
+  try {
+    const [trendingStories, newStories, genres] = await Promise.all([
+      StoryModel.getTrendingStories(8), 
+      StoryModel.getNewStories(8), 
+      TheLoaiModel.getAll(), 
+    ]);
+
+    // Lấy 3 thể loại ngẫu nhiên để hiển thị
+    const randomGenres = genres.sort(() => 0.5 - Math.random()).slice(0, 3);
+    
+    // Lấy danh sách truyện cho từng thể loại ngẫu nhiên
+    const storiesByGenrePromises = randomGenres.map(genre =>
+      StoryModel.getStoriesByCategory(genre.id_theloai, 8)
+    );
+    const storiesByGenreResults = await Promise.all(storiesByGenrePromises);
+    
+    const storiesByGenres = randomGenres.map((genre, index) => ({
+      ...genre,
+      stories: storiesByGenreResults[index]
+    }));
+
+    res.status(200).json({
+      trendingStories,
+      newStories,
+      storiesByGenres,
+    });
+  } catch (error) {
+    console.error("Lỗi khi lấy dữ liệu trang chủ:", error);
+    res.status(500).json({ message: "Lỗi server khi lấy dữ liệu trang chủ" });
+  }
 };
+
 
 module.exports = {
   getAllStories,
@@ -232,4 +267,5 @@ module.exports = {
   getMyStories,
   getStoryBySlug,
   getPublicStories,
+  getHomePageData,
 };

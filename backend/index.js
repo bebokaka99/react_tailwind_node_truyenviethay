@@ -15,20 +15,25 @@ const rateLimit = require("express-rate-limit");
 const logger = require("./ultils/logger");
 const errorMiddleware = require("./middleware/errorHandler");
 
-// Security middlewares
+// Đặt middleware phục vụ file tĩnh LÊN TRƯỚC
+const publicPath = path.resolve(__dirname, "public");
+app.use(express.static(publicPath));
+console.log("🧭 Static path:", publicPath);
+
+// Sau đó mới đến các middleware bảo mật và tùy chỉnh
 app.use(
-    cors({
-        origin: "http://localhost:5173",
-        methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-        allowedHeaders: [
-            "Content-Type",
-            "Authorization",
-            "Content-Length",
-            "X-Requested-With",
-        ],
-        credentials: true,
-        optionsSuccessStatus: 200,
-    })
+    cors({
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+        allowedHeaders: [
+            "Content-Type",
+            "Authorization",
+            "Content-Length",
+            "X-Requested-With",
+        ],
+        credentials: true,
+        optionsSuccessStatus: 200,
+    })
 );
 app.use(helmet());
 app.use(compression());
@@ -38,32 +43,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.options("*", cors());
 
-// Cấu hình lại phần phục vụ file tĩnh
-const publicPath = path.resolve(__dirname, "public");
-
-// Sửa lỗi ở đây: Phục vụ riêng folder ảnh và cấu hình header
-app.use("/uploads_img", (req, res, next) => {
-    // Đặt lại header CORS cho thư mục này nếu cần, dù đã có CORS toàn cục
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-    // Đặt X-Content-Type-Options để tránh lỗi NotSameOrigin
-    res.setHeader("X-Content-Type-Options", "nosniff");
-    next();
-}, express.static(path.join(publicPath, "uploads_img")));
-
-// Phục vụ các file tĩnh còn lại từ thư mục public
-app.use(express.static(publicPath));
-console.log("🧭 Static path:", publicPath);
-
-
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
+    windowMs: 15 * 60 * 1000,
+    max: 100,
 });
 app.use(limiter);
 
 app.use((req, res, next) => {
-    logger.info(`${req.method} ${req.originalUrl}`);
-    next();
+    logger.info(`${req.method} ${req.originalUrl}`);
+    next();
 });
 
 // Cập nhật các dòng require để sử dụng .routes.js
@@ -93,16 +81,16 @@ app.use("/api/ratings", require("./routes/rating.routes"));
 
 // ========== Routes ==========
 app.get("/", (req, res) => {
-    res.send("Backend is working!");
+    res.send("Backend is working!");
 });
 
 app.use((req, res) => {
-    logger.warn(`404 Not Found: ${req.method} ${req.originalUrl}`);
-    res.status(404).json({ message: "Tuyến đường không tồn tại" });
+    logger.warn(`404 Not Found: ${req.method} ${req.originalUrl}`);
+    res.status(404).json({ message: "Tuyến đường không tồn tại" });
 });
 
 app.use(errorMiddleware);
 
 app.listen(port, () => {
-    logger.info(`Server is running on http://localhost:${port}`);
+    logger.info(`Server is running on http://localhost:${port}`);
 });

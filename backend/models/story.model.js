@@ -113,7 +113,7 @@ const StoryModel = {
       },
     };
   },
-  
+
   getById: async (id) => {
     // Lấy tất cả các cột từ truyen_new và noi_dung_chuong_mau từ bảng chuong
     const [rows] = await db.query(
@@ -123,7 +123,7 @@ const StoryModel = {
        WHERE tn.id = ?`,
       [id]
     );
-    return rows[0]; 
+    return rows[0];
   },
 
   getBySlug: async (slug) => {
@@ -211,11 +211,13 @@ const StoryModel = {
     const whereClause = `WHERE trang_thai_kiem_duyet = 'duyet' AND ten_truyen LIKE ?`;
 
     const [data] = await db.query(
-      `SELECT id, ten_truyen, tac_gia, slug, mo_ta, anh_bia, luot_xem, thoi_gian_cap_nhat
-       FROM truyen_new
-       ${whereClause}
-       ORDER BY ${sortField} ${sortOrder}
-       LIMIT ? OFFSET ?`,
+      `SELECT 
+      id, ten_truyen AS title, tac_gia AS author, slug, mo_ta, anh_bia AS imageUrl, luot_xem AS views,
+      thoi_gian_cap_nhat AS updated_at, trang_thai AS status
+    FROM truyen_new
+    ${whereClause}
+    ORDER BY ${sortField} ${sortOrder}
+    LIMIT ? OFFSET ?`,
       [`%${keyword}%`, +limit, +offset]
     );
 
@@ -232,6 +234,88 @@ const StoryModel = {
         total_pages: Math.ceil(countResult[0].total / limit),
       },
     };
+  },
+  getTrendingStories: async (limit = 8) => {
+    const [rows] = await db.query(
+      `
+    SELECT 
+      tn.id, tn.ten_truyen AS title, tn.slug, tn.anh_bia AS imageUrl, tn.mo_ta AS description,
+      tn.luot_xem AS views, tn.trang_thai AS status, tn.thoi_gian_cap_nhat AS updated_at,
+      u.username AS author,
+      COUNT(DISTINCT c.id) AS chapters,
+      AVG(r.rating) AS rating,
+      GROUP_CONCAT(DISTINCT tl.ten_theloai) AS genre,
+      'novel' AS type
+    FROM truyen_new tn
+    LEFT JOIN users_new u ON tn.user_id = u.id
+    LEFT JOIN chuong c ON tn.id = c.truyen_id
+    LEFT JOIN truyen_theloai tt ON tn.id = tt.truyen_id
+    LEFT JOIN theloai_new tl ON tt.theloai_id = tl.id_theloai
+    LEFT JOIN ratings r ON tn.id = r.truyen_id
+    WHERE tn.trang_thai_kiem_duyet = 'duyet'
+    GROUP BY tn.id
+    ORDER BY tn.luot_xem DESC
+    LIMIT ?
+    `,
+      [limit]
+    );
+    return rows;
+  },
+
+  // Hàm lấy truyện mới cập nhật
+  getNewStories: async (limit = 8) => {
+    const [rows] = await db.query(
+      `
+    SELECT 
+      tn.id, tn.ten_truyen AS title, tn.slug, tn.anh_bia AS imageUrl, tn.mo_ta AS description,
+      tn.luot_xem AS views, tn.trang_thai AS status, tn.thoi_gian_cap_nhat AS updated_at,
+      u.username AS author,
+      COUNT(DISTINCT c.id) AS chapters,
+      AVG(r.rating) AS rating,
+      GROUP_CONCAT(DISTINCT tl.ten_theloai) AS genre,
+      'novel' AS type
+    FROM truyen_new tn
+    LEFT JOIN users_new u ON tn.user_id = u.id
+    LEFT JOIN chuong c ON tn.id = c.truyen_id
+    LEFT JOIN truyen_theloai tt ON tn.id = tt.truyen_id
+    LEFT JOIN theloai_new tl ON tt.theloai_id = tl.id_theloai
+    LEFT JOIN ratings r ON tn.id = r.truyen_id
+    WHERE tn.trang_thai_kiem_duyet = 'duyet'
+    GROUP BY tn.id
+    ORDER BY tn.thoi_gian_cap_nhat DESC
+    LIMIT ?
+    `,
+      [limit]
+    );
+    return rows;
+  },
+
+  // Hàm lấy danh sách truyện ngẫu nhiên theo thể loại
+  getStoriesByCategory: async (categoryId, limit = 8) => {
+    const [rows] = await db.query(
+      `
+    SELECT 
+      tn.id, tn.ten_truyen AS title, tn.slug, tn.anh_bia AS imageUrl, tn.mo_ta AS description,
+      tn.luot_xem AS views, tn.trang_thai AS status, tn.thoi_gian_cap_nhat AS updated_at,
+      u.username AS author,
+      COUNT(DISTINCT c.id) AS chapters,
+      AVG(r.rating) AS rating,
+      GROUP_CONCAT(DISTINCT tl.ten_theloai) AS genre,
+      'novel' AS type
+    FROM truyen_new tn
+    LEFT JOIN users_new u ON tn.user_id = u.id
+    LEFT JOIN chuong c ON tn.id = c.truyen_id
+    LEFT JOIN truyen_theloai tt ON tn.id = tt.truyen_id
+    LEFT JOIN theloai_new tl ON tt.theloai_id = tl.id_theloai
+    LEFT JOIN ratings r ON tn.id = r.truyen_id
+    WHERE tn.trang_thai_kiem_duyet = 'duyet' AND tl.id_theloai = ?
+    GROUP BY tn.id
+    ORDER BY RAND()
+    LIMIT ?
+    `,
+      [categoryId, limit]
+    );
+    return rows;
   },
 };
 
