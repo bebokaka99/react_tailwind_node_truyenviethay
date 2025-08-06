@@ -8,26 +8,19 @@ const LikeModel = require("../models/like.model");
 const ProfileService = {
   getCompleteUserProfile: async (userId) => {
     try {
-      // 1. Lấy thông tin cơ bản của người dùng
       const user = await UserModel.findById(userId);
       if (!user || user.length === 0) {
         throw new Error("Không tìm thấy người dùng");
       }
       const userData = user[0];
 
-      // 2. Lấy điểm và cấp độ
       const userPoints = await UserPointModel.getPointsByUserId(userId);
-      
-      // 3. Lấy danh sách thành tích
       const userRewards = await UserRewardModel.getByUserId(userId);
-
-      // 4. Lấy lịch sử đọc gần đây
-      const readingHistory = await HistoryModel.getReadingHistoryByUserId(userId);
-
-      // 5. Lấy danh sách truyện yêu thích
+      const readingHistory = await HistoryModel.getReadingHistoryByUserId(
+        userId
+      );
       const favoriteStories = await LikeModel.getLikedStoriesByUserId(userId);
 
-      // 6. Tổng hợp tất cả dữ liệu thành một object duy nhất
       return {
         user: {
           id: userData.id,
@@ -35,27 +28,40 @@ const ProfileService = {
           full_name: userData.full_name,
           email: userData.email,
           avatar: userData.avatar,
-          bio: userData.bio, // Giả định có trường bio trong DB
+          bio: userData.bio,
           role: userData.role,
           memberSince: userData.created_at,
-          gender: userData.gender,
+          gender: userData.gender, // Đảm bảo trường gender được trả về
         },
         stats: {
           total_points: userPoints?.total_points || 0,
           current_level_id: userPoints?.current_level_id || 0,
-          // Có thể thêm các stat khác từ các bảng khác
         },
         rewards: userRewards,
         readingHistory: readingHistory,
         favoriteStories: favoriteStories,
       };
-
     } catch (error) {
       console.error("Lỗi trong ProfileService:", error);
       throw error;
     }
   },
-  // Có thể thêm các hàm khác như updateProfile...
+  updateUserProfile: async (userId, updatedFields) => {
+    try {
+      const updatedRows = await UserModel.updateUser(userId, updatedFields);
+
+      if (updatedRows === 0) {
+        throw new Error(
+          "Không tìm thấy người dùng hoặc không có gì để cập nhật"
+        );
+      }
+      const user = await UserModel.findById(userId);
+      return user[0];
+    } catch (error) {
+      console.error("Lỗi khi cập nhật hồ sơ người dùng trong service:", error);
+      throw error;
+    }
+  },
 };
 
 module.exports = ProfileService;

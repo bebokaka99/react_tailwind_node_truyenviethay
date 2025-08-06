@@ -1,11 +1,11 @@
-// src/pages/Home.tsx
+// src/pages/Home.tsx (đã sửa đổi)
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HeroSection from '../components/HeroSection';
 import StorySection from '../components/StorySection';
 import RankingSection from '../components/RankingSection';
-import { getHomePageData } from '../api/storyService.js';
+import { getHomePageData } from '../services/storyService';
 
 const Home = () => {
   const [data, setData] = useState({
@@ -13,25 +13,23 @@ const Home = () => {
     newStories: [],
     storiesByGenres: [],
   });
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
-        const homeData = await getHomePageData();
+        const homeData = await getHomePageData(); // Gọi hàm service
         setData(homeData);
         setLoading(false);
-      } catch (err) {
-        setError("Không thể tải dữ liệu trang chủ.");
+      } catch (err: any) {
+        setError(err.message);
         setLoading(false);
-        console.error(err);
       }
     };
     fetchData();
   }, []);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
@@ -39,6 +37,7 @@ const Home = () => {
       </div>
     );
   }
+
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
@@ -48,35 +47,27 @@ const Home = () => {
   }
 
   return (
+    // ... phần JSX còn lại không đổi
     <>
-
       <Header />
       <main className="bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-white transition-colors duration-300">
         <HeroSection />
-        {/* Phần Tiểu thuyết nổi bật - Dùng dữ liệu từ API */}
         <StorySection
           title="Truyện nổi bật"
           description="Những tác phẩm được yêu thích nhất"
-          stories={data.trendingStories} // <-- Truyền dữ liệu thật vào đây
-          linkTo="/novels" // Giả định là chỉ có tiểu thuyết
+          stories={data.trendingStories}
+          linkTo="/novels"
         />
-        {/* Phần Truyện mới cập nhật - Dùng dữ liệu từ API */}
         <StorySection
           title="Truyện mới cập nhật"
           description="Các chương mới nhất từ tác phẩm"
           stories={data.newStories}
-          linkTo="/novels" // Giả định là chỉ có tiểu thuyết
+          linkTo="/novels"
         />
-        {/* Phần Bảng xếp hạng - Dùng dữ liệu từ API */}
-        {/*
-          Giả định RankingSection có thể nhận dữ liệu từ trendingStories.
-          Nếu không, có thể bạn sẽ cần một component RankingSection riêng cho từng loại xếp hạng.
-        */}
-        <RankingSection
-          stories={data.trendingStories} // <-- Giả định có thể truyền dữ liệu thật
+        <RankingSection 
+          stories={data.trendingStories}
         />
-        {/* Phần Truyện theo thể loại ngẫu nhiên */}
-        {data.storiesByGenres.map(genreSection => (
+        {data.storiesByGenres.map((genreSection: any) => (
           <StorySection
             key={genreSection.id_theloai}
             title={genreSection.ten_theloai}
@@ -90,4 +81,5 @@ const Home = () => {
     </>
   );
 };
+
 export default Home;

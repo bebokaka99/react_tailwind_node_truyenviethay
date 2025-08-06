@@ -9,21 +9,16 @@ const uploadAvatar = require("../middleware/upload_avatar");
 // Route lấy toàn bộ thông tin hồ sơ của người dùng đang đăng nhập
 router.get("/me", authenticateToken, profileController.getProfile);
 
-// Route cập nhật thông tin hồ sơ (sử dụng controller cũ)
+// ** Đã sửa lỗi: Cập nhật controller chính xác cho việc cập nhật hồ sơ
+// Chỉ cần một route PUT duy nhất là đủ
 router.put(
-  "/me",
+  "/profile",
   authenticateToken,
   uploadAvatar.single("avatar"),
-  authController.updateMe
-);
-router.post(
-  "/me",
-  authenticateToken,
-  uploadAvatar.single("avatar"),
-  authController.updateMe
+  profileController.updateProfile
 );
 
-// Route thay đổi mật khẩu (sử dụng controller cũ)
+// Route thay đổi mật khẩu
 router.put(
   "/change-password",
   authenticateToken,
