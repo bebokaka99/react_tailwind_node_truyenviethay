@@ -1,58 +1,23 @@
-// Header.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-// import ThemeToggle from './ThemeToggle';
 import { RiMenuLine, RiSearchLine, RiCloseLine, RiUserLine, RiHistoryLine, RiLogoutBoxLine } from 'react-icons/ri';
-import { FaUserCircle, FaBookmark } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
 import logo from '/logo.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-
   const { user, loading, logout } = useAuth();
-  // Tạo state mới để lưu trữ URL hoặc chuỗi base64 của avatar
-  const [avatarSrc, setAvatarSrc] = useState('/uploads_img/avatar/default-avatar.jpg');
-
+  
   const handleSignOut = () => {
     logout();
     setIsUserMenuOpen(false);
   };
 
-  // Sử dụng useEffect để tải avatar khi thông tin người dùng có sẵn
-  useEffect(() => {
-    const loadAvatar = async () => {
-      // Kiểm tra user và user.avatar có tồn tại không
-      if (user && user.avatar) {
-        const fullUrl = `http://localhost:3000${user.avatar}`;
-        try {
-          const response = await fetch(fullUrl);
-          if (response.ok) {
-            const blob = await response.blob();
-            const reader = new FileReader();
-            // Chuyển đổi blob thành chuỗi base64
-            reader.onloadend = () => {
-              setAvatarSrc(reader.result as string);
-            };
-            reader.readAsDataURL(blob);
-          } else {
-            // Fallback về ảnh mặc định nếu không fetch được
-            setAvatarSrc('/uploads_img/avatar/default-avatar.jpg');
-          }
-        } catch (error) {
-          console.error('Lỗi khi tải avatar:', error);
-          setAvatarSrc('/uploads_img/avatar/default-avatar.jpg');
-        }
-      } else {
-        setAvatarSrc('/uploads_img/avatar/default-avatar.jpg');
-      }
-    };
-
-    if (user) {
-      loadAvatar();
-    }
-  }, [user]);
+  const avatarUrl = user?.avatar
+    ? `http://localhost:3000${user.avatar.startsWith('/') ? '' : '/'}${user.avatar}`
+    : '/uploads_img/avatar/default-avatar.jpg';
 
   return (
     <header className="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-sm transition-colors">
@@ -91,7 +56,7 @@ const Header = () => {
                   className="flex items-center space-x-2 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                 >
                   <img
-                    src={avatarSrc} // Sử dụng state avatarSrc đã được cập nhật
+                    src={avatarUrl}
                     alt="Avatar"
                     className="w-8 h-8 rounded-full object-cover"
                   />
@@ -133,7 +98,7 @@ const Header = () => {
                 </Link>
               </div>
             )}
-
+            
             <button
               className="md:hidden text-gray-500 dark:text-gray-300"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -196,6 +161,6 @@ const Header = () => {
       </div>
     </header>
   );
-}
+};
 
 export default Header;

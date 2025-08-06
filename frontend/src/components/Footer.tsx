@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '/logo.png';
 
 const Footer = () => {
   return (
@@ -7,8 +8,8 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="md:col-span-2">
-            <Link to="/" className="flex items-center space-x-2 mb-4">
-              <div className="text-2xl font-['Pacifico'] text-blue-400 dark:text-blue-300">DocSach</div>
+            <Link to="/" className="flex items-center">
+              <img src={logo} alt="TruyenVietHay" className="h-8 w-auto" />
             </Link>
             <p className="text-gray-300 dark:text-gray-400 mb-6 max-w-md">
               Nền tảng đọc sách trực tuyến miễn phí hàng đầu Việt Nam. 
@@ -56,7 +57,7 @@ const Footer = () => {
         <div className="border-t border-gray-700 dark:border-gray-600 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 dark:text-gray-500 text-sm">
-              © 2024 DocSach. Tất cả quyền được bảo lưu.
+              © 2026 Truyenviethay. Tất cả quyền được bảo lưu. Cảm ơn các độc giả và tác giả đã đồng hành cùng chúng tôi.
             </p>
             <div className="flex items-center space-x-6 mt-4 md:mt-0">
               <Link to="/terms" className="text-gray-400 dark:text-gray-500 hover:text-white dark:hover:text-gray-300 text-sm transition-colors cursor-pointer">

@@ -25,7 +25,11 @@ function App() {
           <Route path="/rankings" element={<RankingsPage />} />
           <Route path="/library" element={<LibraryPage />} />
           <Route path="/reading-history" element={<ReadingHistoryPage />} /> 
-          <Route path="/novel/:id" element={<NovelDetail />} />
+          {/* Cập nhật đường dẫn này */}
+          <Route path="/novel/:slug" element={<NovelDetail />} />
+          {/* Hoặc nếu bạn muốn hỗ trợ cả id và slug, có thể thêm 2 route */}
+          {/* <Route path="/novel/:id" element={<NovelDetail />} /> */}
+          {/* <Route path="/novel/slug/:slug" element={<NovelDetail />} /> */}
           <Route path="/comic/:id" element={<div>Trang chi tiết truyện tranh</div>} /> 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

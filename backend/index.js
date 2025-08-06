@@ -1,3 +1,4 @@
+// backend/index.js (Phiên bản cuối cùng đã sửa)
 const express = require("express");
 const methodOverride = require("method-override");
 const app = express();
@@ -15,46 +16,49 @@ const rateLimit = require("express-rate-limit");
 const logger = require("./ultils/logger");
 const errorMiddleware = require("./middleware/errorHandler");
 
-// Đặt middleware phục vụ file tĩnh LÊN TRƯỚC
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        credentials: true,
+    })
+);
+
+
+app.use(
+    helmet({
+        crossOriginResourcePolicy: { policy: "cross-origin" },
+    })
+);
+
+// Phục vụ file tĩnh, đặt SAU CORS và HELMET
 const publicPath = path.resolve(__dirname, "public");
+const uploadsImgPath = path.resolve(__dirname, "uploads_img");
+
 app.use(express.static(publicPath));
+app.use("/uploads_img", express.static(uploadsImgPath));
+
 console.log("🧭 Static path:", publicPath);
 
-// Sau đó mới đến các middleware bảo mật và tùy chỉnh
-app.use(
-    cors({
-        origin: "http://localhost:5173",
-        methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-        allowedHeaders: [
-            "Content-Type",
-            "Authorization",
-            "Content-Length",
-            "X-Requested-With",
-        ],
-        credentials: true,
-        optionsSuccessStatus: 200,
-    })
-);
-app.use(helmet());
+// Các middleware bảo mật và tùy chỉnh khác
 app.use(compression());
 app.use(xssClean());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-app.options("*", cors());
 
+// Giới hạn rate limit, đã tăng max lên để tiện dev
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
+    windowMs: 15 * 60 * 1000,
+    max: 1000,
 });
 app.use(limiter);
 
 app.use((req, res, next) => {
-    logger.info(`${req.method} ${req.originalUrl}`);
-    next();
+    logger.info(`${req.method} ${req.originalUrl}`);
+    next();
 });
 
-// Cập nhật các dòng require để sử dụng .routes.js
+
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/truyen", require("./routes/story.routes"));
 app.use("/api/chuong", require("./routes/chapter.routes"));
@@ -65,12 +69,8 @@ app.use("/api/history", require("./routes/history.routes"));
 app.use("/api/comments", require("./routes/comment.routes"));
 app.use("/api/follow", require("./routes/follow.routes"));
 app.use("/api/like", require("./routes/like.routes"));
-
-// THAY ĐỔI DÒNG NÀY
 app.use("/api/user", require("./routes/profile.routes"));
 app.use("/api/admin/users", require("./routes/user.routes"));
-
-// user level
 app.use("/api/levels", require("./routes/userLevel.routes"));
 app.use("/api/levels/history", require("./routes/levelHistory.routes"));
 app.use("/api/points", require("./routes/points.routes"));
@@ -79,18 +79,19 @@ app.use("/api/rewards", require("./routes/reward.routes"));
 app.use("/api/user-rewards", require("./routes/userReward.routes"));
 app.use("/api/ratings", require("./routes/rating.routes"));
 
-// ========== Routes ==========
 app.get("/", (req, res) => {
-    res.send("Backend is working!");
+    res.send("Backend is working!");
 });
 
+
 app.use((req, res) => {
-    logger.warn(`404 Not Found: ${req.method} ${req.originalUrl}`);
-    res.status(404).json({ message: "Tuyến đường không tồn tại" });
+    logger.warn(`404 Not Found: ${req.method} ${req.originalUrl}`);
+    res.status(404).json({ message: "Tuyến đường không tồn tại" });
 });
 
 app.use(errorMiddleware);
 
+
 app.listen(port, () => {
-    logger.info(`Server is running on http://localhost:${port}`);
+    logger.info(`Server is running on http://localhost:${port}`);
 });

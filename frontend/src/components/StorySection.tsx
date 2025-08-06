@@ -11,6 +11,7 @@ moment.locale('vi');
 interface Story {
   id: number;
   title: string;
+  slug: string; // Thêm thuộc tính slug vào đây
   author: string;
   chapters: number;
   views: string;
@@ -118,7 +119,8 @@ export default function StorySection({ title, description, stories, linkTo }: St
                   </span>
                 </div>
 
-                <Link to={`/${story.type}/${story.id}`} className="block mt-4">
+                {/* SỬA ĐƯỜNG DẪN TẠI ĐÂY */}
+                <Link to={`/${story.type}/${story.slug}`} className="block mt-4">
                   <button className={`w-full text-white py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600`}>
                     Đọc ngay
                   </button>

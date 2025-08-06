@@ -5,24 +5,74 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ChapterList from '../../components/novel/ChapterList';
 import ReviewSection from '../../components/novel/ReviewSection';
-import { getNovelById } from '../../mockData';
+
+interface StoryData {
+  id: number;
+  ten_truyen: string;
+  slug: string;
+  tac_gia: string;
+  mo_ta: string;
+  trang_thai: string;
+  anh_bia: string;
+  luot_xem: number;
+  thoi_gian_cap_nhat: string;
+  // Thêm các trường khác nếu có
+}
 
 export default function NovelDetail() {
-  const { id } = useParams<{ id: string }>();
-  const novelId = id ? parseInt(id, 10) : 1;
+  const { slug } = useParams<{ slug: string }>();
+  const [novelData, setNovelData] = useState<StoryData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('chapters');
   const [isFavorited, setIsFavorited] = useState(false);
-  
-  const novelData = getNovelById(novelId);
+  const backendUrl = "http://localhost:3000";
 
-  // Nếu không tìm thấy truyện, có thể chuyển hướng hoặc hiển thị trang lỗi
-  if (!novelData) {
+  useEffect(() => {
+    if (!slug) {
+      setError("Không tìm thấy slug truyện");
+      setLoading(false);
+      return;
+    }
+
+    const fetchNovelDetails = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${backendUrl}/api/truyen/slug/${slug}`);
+        if (!response.ok) {
+          throw new Error('Không thể lấy dữ liệu truyện');
+        }
+        const data = await response.json();
+        setNovelData(data);
+      } catch (e) {
+        if (e instanceof Error) {
+            setError(e.message);
+        } else {
+            setError("Lỗi không xác định");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNovelDetails();
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors flex items-center justify-center">
+        <p className="text-gray-600 dark:text-gray-400">Đang tải...</p>
+      </div>
+    );
+  }
+
+  if (error || !novelData) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
         <Header />
         <div className="container mx-auto px-6 py-16 text-center">
           <h1 className="text-4xl font-bold text-red-500 dark:text-red-400 mb-4">404 - Không tìm thấy truyện</h1>
-          <p className="text-gray-600 dark:text-gray-400">Tiểu thuyết bạn đang tìm kiếm không tồn tại.</p>
+          <p className="text-gray-600 dark:text-gray-400">{error || "Tiểu thuyết bạn đang tìm kiếm không tồn tại."}</p>
           <Link to="/" className="mt-8 inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
             Quay lại trang chủ
           </Link>
@@ -31,26 +81,27 @@ export default function NovelDetail() {
       </div>
     );
   }
+  
+  const coverImageUrl = novelData.anh_bia ? `${backendUrl}/uploads_img/bia_truyen/${novelData.anh_bia}` : 'fallback_image_url.jpg';
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       <Header />
-      
       <div className="container mx-auto px-6 py-8">
         {/* Phần thông tin chi tiết truyện */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-colors">
           <div className="md:flex">
             <div className="md:w-80 md:flex-shrink-0">
               <img 
-                src={novelData.coverUrl}
-                alt={novelData.title}
+                src={coverImageUrl}
+                alt={novelData.ten_truyen}
                 className="w-full h-96 md:h-full object-cover object-top"
               />
             </div>
             
             <div className="p-8 flex-1">
               <div className="flex justify-between items-start mb-4">
-                <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">{novelData.title}</h1>
+                <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">{novelData.ten_truyen}</h1>
                 <button 
                   onClick={() => setIsFavorited(!isFavorited)}
                   className={`w-12 h-12 flex items-center justify-center rounded-full transition-colors cursor-pointer ${
@@ -63,63 +114,50 @@ export default function NovelDetail() {
                 </button>
               </div>
               
-              <p className="text-gray-600 dark:text-gray-400 mb-4">Tác giả: {novelData.author}</p>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">Tác giả: {novelData.tac_gia}</p>
               
               <div className="flex flex-wrap gap-2 mb-6">
-                {novelData.genres.map((genre, index) => (
-                  <span key={index} className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-3 py-1 rounded-full text-sm">
-                    {genre}
-                  </span>
-                ))}
-                <span className={`px-3 py-1 rounded-full text-sm ${
-                  novelData.status === 'Đang cập nhật' 
-                    ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' 
-                    : 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300'
-                }`}>
-                  {novelData.status}
+                 <span className={`px-3 py-1 rounded-full text-sm ${
+                  novelData.trang_thai === 'Đang cập nhật' 
+                  ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' 
+                  : 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300'
+                  }`}>
+                  {novelData.trang_thai}
                 </span>
               </div>
               
               <div className="grid grid-cols-3 gap-4 mb-6">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{novelData.chapters}</div>
+                  <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">?</div>
                   <div className="text-gray-600 dark:text-gray-400 text-sm">Chương</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{novelData.views}</div>
+                  <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{novelData.luot_xem}</div>
                   <div className="text-gray-600 dark:text-gray-400 text-sm">Lượt đọc</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{novelData.rating}</div>
+                  <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">?</div>
                   <div className="flex justify-center text-yellow-400 text-sm">
-                    {[...Array(5)].map((_, i) => (
-                      <i key={i} className={`ri-star-${i < Math.floor(novelData.rating) ? 'fill' : 'line'}`}></i>
-                    ))}
                   </div>
                 </div>
               </div>
               
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">{novelData.description}</p>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">{novelData.mo_ta}</p>
               
               <div className="flex space-x-4">
-                <Link to={`/novel/${novelId}/read`} className="flex-1">
+                <Link to={`/novel/${novelData.id}/read`} className="flex-1">
                   <button className="w-full bg-blue-600 dark:bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors font-semibold whitespace-nowrap cursor-pointer">
                     Bắt đầu đọc
                   </button>
                 </Link>
-                <Link to={`/novel/${novelId}/read?chapter=latest`}>
-                  <button className="bg-green-600 dark:bg-green-500 text-white py-3 px-6 rounded-lg hover:bg-green-700 dark:hover:bg-green-600 transition-colors font-semibold whitespace-nowrap cursor-pointer">
-                    Đọc mới nhất
-                  </button>
-                </Link>
               </div>
               
-              <p className="text-gray-500 dark:text-gray-400 text-sm mt-4">Cập nhật lần cuối: {novelData.lastUpdate}</p>
+              <p className="text-gray-500 dark:text-gray-400 text-sm mt-4">
+                Cập nhật lần cuối: {new Date(novelData.thoi_gian_cap_nhat).toLocaleDateString()}
+              </p>
             </div>
           </div>
         </div>
-
-        {/* Phần tab Danh sách chương và Đánh giá */}
         <div className="mt-8">
           <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
             <button 
@@ -143,12 +181,10 @@ export default function NovelDetail() {
               Đánh giá & Bình luận
             </button>
           </div>
-
-          {activeTab === 'chapters' && <ChapterList novelId={String(novelId)} />}
-          {activeTab === 'reviews' && <ReviewSection novelId={String(novelId)} />}
+          {activeTab === 'chapters' && <ChapterList novelId={String(novelData.id)} />}
+          {activeTab === 'reviews' && <ReviewSection novelId={String(novelData.id)} />}
         </div>
       </div>
-      
       <Footer />
     </div>
   );
