@@ -1,11 +1,10 @@
-// src/components/settings/AccountSettings.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
 import { useProfile } from '../../hooks/useProfile';
 import { UserData } from '../../types/user';
 import ChangePasswordModal from './ChangePasswordModal';
-import TwoFactorAuthModal from './TwoFactorAuthModal'; // Import modal 2FA
+import TwoFactorAuthModal from './TwoFactorAuthModal';
 
 export default function AccountSettings() {
   const { 
@@ -16,7 +15,6 @@ export default function AccountSettings() {
     updateProfile,
     changePassword,
     passwordChangeError,
-    // Các state và hàm mới từ useProfile cho 2FA
     qrCodeUrl,
     twoFactorSecret,
     twoFactorLoading,
@@ -48,7 +46,7 @@ export default function AccountSettings() {
         full_name: profile.full_name,
         username: profile.username,
         email: profile.email,
-        bio: profile.bio,
+        bio: profile.bio ?? '',
         gender: profile.gender,
       });
     }
@@ -92,7 +90,7 @@ export default function AccountSettings() {
         full_name: profile.full_name,
         username: profile.username,
         email: profile.email,
-        bio: profile.bio,
+        bio: profile.bio ?? '',
         gender: profile.gender,
       });
     }
@@ -339,14 +337,14 @@ export default function AccountSettings() {
                 <textarea
                   name="bio"
                   rows={4}
-                  value={formData.bio || ''}
+                  value={formData.bio ?? ''}
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-colors duration-200"
                   maxLength={500}
                 />
               ) : (
                 <p className="text-gray-900 dark:text-gray-100 py-2 leading-relaxed">
-                  {profile.bio || 'Chưa có thông tin giới thiệu.'}
+                  {profile.bio ?? 'Chưa có thông tin giới thiệu.'}
                 </p>
               )}
             </div>

@@ -49,15 +49,18 @@ const Login = () => {
         password: formData.password
       });
 
-      handleLoginSuccess(response.data); // Sửa tại đây
+      handleLoginSuccess(response.data);
 
     } catch (err: any) {
       if (axios.isAxiosError(err) && err.response) {
-        if (err.response.status === 403 && err.response.data?.message === "Yêu cầu xác thực 2 yếu tố.") {
-          setTempUser(err.response.data.data.user);
+        const { status, data } = err.response;
+
+        // Kiểm tra cụ thể phản hồi yêu cầu xác thực 2FA
+        if (status === 403 && data?.message === "Yêu cầu xác thực hai yếu tố.") {
+          setTempUser(data.data.user);
           setIs2FAModalOpen(true);
         } else {
-          setError(err.response.data?.message || 'Đăng nhập thất bại. Vui lòng thử lại.');
+          setError(data?.message || 'Đăng nhập thất bại. Vui lòng thử lại.');
         }
       } else {
         setError('Đã xảy ra lỗi không xác định.');
@@ -78,7 +81,7 @@ const Login = () => {
         userId: tempUser.id,
       });
 
-      handleLoginSuccess(response.data); // Sửa tại đây
+      handleLoginSuccess(response.data);
       setIs2FAModalOpen(false);
 
     } catch (err: any) {

@@ -1,22 +1,33 @@
 // backend/routes/auth.routes.js
 const express = require("express");
 const router = express.Router();
-const authController = require("../controllers/auth.controller");
+const {
+  register,
+  login,
+  verifyTwoFactor,
+  verifyLoginTwoFactor,
+  getMe,
+  updateMe,
+  changePassword,
+} = require("../controllers/auth.controller");
 const upload = require("../middleware/upload_img");
 const { authenticateToken } = require("../middleware/auth");
-const { authorizeRoles } = require("../middleware/auth"); // Thêm dòng này nếu cần sử dụng authorizeRoles
+const { authorizeRoles } = require("../middleware/auth");
 
-router.post("/dang-ky", authController.register);
-router.post("/dang-nhap", authController.login);
-router.post("/2fa/verify", authController.verifyTwoFactor); // Endpoint mới để xác minh 2FA
+router.post("/dang-ky", register);
+router.post("/dang-nhap", login);
+// Route để kích hoạt 2FA
+router.post("/2fa/verify", authenticateToken, verifyTwoFactor);
+// Route để xác thực 2FA khi đăng nhập
+router.post("/2fa/verify-login", verifyLoginTwoFactor);
 
-router.get("/me", authenticateToken, authController.getMe);
-router.put("change-password", authenticateToken, authController.changePassword);
+router.get("/me", authenticateToken, getMe);
+router.put("change-password", authenticateToken, changePassword);
 router.put(
-    "/me",
-    authenticateToken,
-    upload.single("avatar"),
-    authController.updateMe
+  "/me",
+  authenticateToken,
+  upload.single("avatar"),
+  updateMe
 );
 
 module.exports = router;

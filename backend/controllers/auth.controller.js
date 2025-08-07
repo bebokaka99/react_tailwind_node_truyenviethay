@@ -81,10 +81,11 @@ exports.login = asyncHandler(async (req, res, next) => {
 
     // Kiểm tra nếu người dùng đã bật 2FA
     if (user.is_two_factor_enabled) {
-        return res.status(200).json({
-            message: "Yêu cầu mã xác thực hai yếu tố",
+        // Trả về lỗi 403 để frontend xử lý và mở modal
+        return res.status(403).json({
+            message: "Yêu cầu xác thực hai yếu tố.",
             two_factor_required: true,
-            userId: user.id
+            data: { user: user } // Gửi toàn bộ đối tượng user
         });
     }
 
@@ -159,6 +160,54 @@ exports.verifyTwoFactor = asyncHandler(async (req, res, next) => {
     });
 });
 
+exports.verifyLoginTwoFactor = asyncHandler(async (req, res, next) => {
+    const { userId, otpToken } = req.body;
+
+    if (!userId || !otpToken) {
+        res.status(400);
+        throw new Error("Thiếu thông tin người dùng hoặc mã xác thực.");
+    }
+
+    const results = await User.findById(userId);
+    const user = results[0];
+
+    if (!user || !user.is_two_factor_enabled || !user.two_factor_secret) {
+        res.status(400);
+        throw new Error("2FA không được kích hoạt cho tài khoản này.");
+    }
+
+    const verified = speakeasy.totp.verify({
+        secret: user.two_factor_secret,
+        encoding: 'base32',
+        token: otpToken,
+        window: 1
+    });
+
+    if (!verified) {
+        res.status(401);
+        throw new Error("Mã xác thực không hợp lệ.");
+    }
+
+    const token = jwt.sign(
+        { id: user.id, role: user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+    );
+
+    res.json({
+        message: "Đăng nhập 2FA thành công",
+        token,
+        user: {
+            id: user.id,
+            username: user.username,
+            role: user.role,
+            full_name: user.full_name,
+            avatar: user.avatar,
+            is_two_factor_enabled: user.is_two_factor_enabled,
+        },
+    });
+});
+
 exports.getMe = asyncHandler(async (req, res) => {
     const userId = req.user.id;
 
@@ -181,7 +230,7 @@ exports.getMe = asyncHandler(async (req, res) => {
             role: user.role,
             gender: user.gender,
             created_at: user.created_at,
-            is_two_factor_enabled: user.is_two_factor_enabled, // Thêm trường này
+            is_two_factor_enabled: user.is_two_factor_enabled,
         },
     });
 });
