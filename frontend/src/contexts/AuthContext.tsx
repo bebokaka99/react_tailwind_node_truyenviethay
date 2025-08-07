@@ -1,21 +1,14 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
-
-// Định nghĩa kiểu dữ liệu cho User
-interface User {
-    id: number;
-    username: string;
-    email: string;
-    full_name: string;
-    avatar: string;
-}
+import { UserData } from '../types/user';
 
 // Định nghĩa kiểu dữ liệu cho AuthContext
 interface AuthContextType {
-    user: User | null;
+    user: UserData | null;
     loading: boolean;
-    login: (token: string, userData: User) => void;
+    login: (token: string, userData: UserData) => void;
     logout: () => void;
+    setLoading: (isLoading: boolean) => void;
 }
 
 // Tạo context với giá trị mặc định là null
@@ -28,11 +21,11 @@ interface AuthProviderProps {
 
 // Component AuthProvider để bao bọc ứng dụng của bạn
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<UserData | null>(null);
     const [loading, setLoading] = useState(true);
 
     // Hàm này sẽ được gọi khi bạn đăng nhập thành công
-    const login = (token: string, userData: User) => {
+    const login = (token: string, userData: UserData) => {
         localStorage.setItem('accessToken', token);
         localStorage.setItem('currentUser', JSON.stringify(userData));
         setUser(userData);
@@ -55,7 +48,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             });
 
             if (response.status === 200) {
-                const userData: User = response.data.user;
+                const userData: UserData = response.data.user;
                 setUser(userData);
             } else {
                 logout();
@@ -77,7 +70,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
     }, []);
 
-    const value = { user, loading, login, logout };
+    const value = { user, loading, login, logout, setLoading };
 
     return (
         <AuthContext.Provider value={value}>

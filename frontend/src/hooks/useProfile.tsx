@@ -18,16 +18,22 @@ export const useProfile = () => {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [passwordChangeError, setPasswordChangeError] = useState<string | null>(null);
 
+  // States mới cho 2FA
+  const [twoFactorSecret, setTwoFactorSecret] = useState<string | null>(null);
+  const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
+  const [twoFactorError, setTwoFactorError] = useState<string | null>(null);
+  const [twoFactorLoading, setTwoFactorLoading] = useState<boolean>(false);
+
   const fetchProfile = async (token: string) => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`${API_BASE_URL}/user/me`, {
+      const response = await axios.get(`${API_BASE_URL}/auth/me`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       });
-      setProfile(response.data.data.user);
+      setProfile(response.data.user);
     } catch (err: any) {
       if (axios.isAxiosError(err) && err.response?.status === 401) {
         logout();
@@ -53,18 +59,18 @@ export const useProfile = () => {
 
       const formData = new FormData();
       if (updatedData.full_name !== undefined) formData.append('full_name', updatedData.full_name);
-      if (updatedData.bio !== undefined) formData.append('bio', updatedData.bio);
+      if (updatedData.bio !== undefined) formData.append('bio', updatedData.bio || '');
       if (updatedData.gender !== undefined) formData.append('gender', updatedData.gender);
       if (avatarFile) formData.append('avatar', avatarFile);
 
-      const response = await axios.put(`${API_BASE_URL}/user/profile`, formData, {
+      const response = await axios.put(`${API_BASE_URL}/auth/me`, formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
 
-      setProfile(response.data.data);
+      setProfile(response.data.user);
       return { success: true, message: response.data.message };
     } catch (err: any) {
       const errorMessage = err.response?.data?.message || 'Lỗi khi cập nhật hồ sơ.';
@@ -83,22 +89,22 @@ export const useProfile = () => {
     }
 
     try {
-      const response = await axios.put(`${API_BASE_URL}/user/change-password`,
-      {
-        oldPassword,
-        newPassword
-      },
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`,
+      const response = await axios.put(`${API_BASE_URL}/auth/change-password`,
+        {
+          oldPassword,
+          newPassword
         },
-      });
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
 
       setPasswordChangeError(null);
       alert("Đổi mật khẩu thành công! Bạn sẽ được đăng xuất và chuyển hướng sau 3 giây.");
       setTimeout(() => {
         logout();
-        navigate('/login'); 
+        navigate('/login');
       }, 3000);
 
       return { success: true, message: response.data.message };
@@ -108,8 +114,99 @@ export const useProfile = () => {
       return { success: false, message: errorMessage };
     }
   };
-  
-  const removeAvatar = () => {
+
+  const generateTwoFactor = async () => {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      setTwoFactorError('Bạn cần đăng nhập để kích hoạt 2FA.');
+      return;
+    }
+    setTwoFactorLoading(true);
+    setTwoFactorError(null);
+    try {
+      const response = await axios.post(`${API_BASE_URL}/2fa/generate`, {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      setTwoFactorSecret(response.data.secret);
+      setQrCodeUrl(response.data.qrCodeUrl);
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message || 'Lỗi khi tạo mã QR 2FA.';
+      setTwoFactorError(errorMessage);
+    } finally {
+      setTwoFactorLoading(false);
+    }
+  };
+
+  const verifyAndEnableTwoFactor = async (otpToken: string) => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      setTwoFactorError('Bạn cần đăng nhập để kích hoạt 2FA.');
+      return { success: false, message: 'Chưa đăng nhập' };
+    }
+
+    setTwoFactorLoading(true);
+    setTwoFactorError(null);
+    try {
+      // Sửa đổi ở đây: chỉ gửi trường 'token'
+      const response = await axios.post(`${API_BASE_URL}/2fa/verify-enable`, {
+        token: otpToken,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+
+      // Cập nhật trạng thái người dùng sau khi kích hoạt thành công
+      setProfile(prevProfile => {
+        if (prevProfile) {
+          return { ...prevProfile, is_two_factor_enabled: true };
+        }
+        return prevProfile;
+      });
+      // Xóa state tạm thời
+      setTwoFactorSecret(null);
+      setQrCodeUrl(null);
+      return { success: true, message: response.data.message };
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message || 'Mã xác thực không hợp lệ. Vui lòng thử lại.';
+      setTwoFactorError(errorMessage);
+      return { success: false, message: errorMessage };
+    } finally {
+      setTwoFactorLoading(false);
+    }
+  };
+
+  const disableTwoFactor = async (token: string) => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      setTwoFactorError('Bạn cần đăng nhập để vô hiệu hóa 2FA.');
+      return { success: false, message: 'Chưa đăng nhập' };
+    }
+    setTwoFactorLoading(true);
+    setTwoFactorError(null);
+    try {
+      const response = await axios.post(`${API_BASE_URL}/2fa/disable`, { token }, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
+      // Cập nhật trạng thái người dùng sau khi vô hiệu hóa thành công
+      setProfile(prevProfile => {
+        if (prevProfile) {
+          return { ...prevProfile, is_two_factor_enabled: false };
+        }
+        return prevProfile;
+      });
+      return { success: true, message: response.data.message };
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message || 'Mã xác thực không hợp lệ. Vui lòng thử lại.';
+      setTwoFactorError(errorMessage);
+      return { success: false, message: errorMessage };
+    } finally {
+      setTwoFactorLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -125,14 +222,22 @@ export const useProfile = () => {
     }
   }, [user, authLoading]);
 
+  // Điều chỉnh giá trị trả về
   return {
     profile,
     loading,
     error,
     isUpdating,
     updateProfile,
-    removeAvatar,
     changePassword,
-    passwordChangeError
+    passwordChangeError,
+    // Giá trị mới cho 2FA
+    twoFactorSecret,
+    qrCodeUrl,
+    twoFactorError,
+    twoFactorLoading,
+    generateTwoFactor,
+    verifyAndEnableTwoFactor,
+    disableTwoFactor,
   };
 };

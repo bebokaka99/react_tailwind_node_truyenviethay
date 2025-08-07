@@ -78,6 +78,7 @@ app.use("/api/tasks", require("./routes/task.routes"));
 app.use("/api/rewards", require("./routes/reward.routes"));
 app.use("/api/user-rewards", require("./routes/userReward.routes"));
 app.use("/api/ratings", require("./routes/rating.routes"));
+app.use("/api/2fa", require("./routes/two_factor.routes"));
 
 app.get("/", (req, res) => {
     res.send("Backend is working!");

@@ -34,7 +34,7 @@ const UserModel = {
 
   findByUsername: async (username) => {
     const [rows] = await db.query(
-      "SELECT id, username, password, email, full_name, phone, avatar, role, gender, bio, created_at, status, ban_until FROM users_new WHERE username = ?",
+      "SELECT id, username, password, email, full_name, phone, avatar, role, gender, bio, created_at, status, ban_until, two_factor_secret, is_two_factor_enabled FROM users_new WHERE username = ?",
       [username]
     );
     return rows;
@@ -43,8 +43,8 @@ const UserModel = {
   create: async (userData) => {
     const avatar = userData.avatar || "/uploads_img/avatar/default-avatar.jpg";
     const sql = `
-        INSERT INTO users_new (username, password, email, full_name, phone, role, avatar, gender)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO users_new (username, password, email, full_name, phone, role, avatar, gender, two_factor_secret, is_two_factor_enabled)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     const values = [
       userData.username,
@@ -55,16 +55,17 @@ const UserModel = {
       userData.role || "user",
       avatar,
       userData.gender || "other",
+      null, // Khởi tạo two_factor_secret là null
+      0,    // Khởi tạo is_two_factor_enabled là 0 (false)
     ];
     const [result] = await db.query(sql, values);
     return result;
   },
 
-  // Sửa lỗi: Đã thêm cột 'bio' vào câu lệnh SQL
   findById: async (id) => {
     const [rows] = await db.query(
       `
-      SELECT id, username, password, email, full_name, phone, avatar, role, gender, bio, created_at, status, ban_until
+      SELECT id, username, password, email, full_name, phone, avatar, role, gender, bio, created_at, status, ban_until, two_factor_secret, is_two_factor_enabled
       FROM users_new WHERE id = ?
     `,
       [id]
@@ -91,11 +92,10 @@ const UserModel = {
     }
   },
 
-  // Sửa lỗi: Sử dụng phương pháp linh hoạt để cập nhật
   updateUser: async (id, updatedData) => {
     const fieldsToUpdate = Object.entries(updatedData).filter(
       ([key, value]) =>
-        value !== undefined && value !== null && key !== "id" // Bỏ qua id và các giá trị null/undefined
+        value !== undefined && value !== null && key !== "id"
     );
 
     if (fieldsToUpdate.length === 0) {
@@ -182,6 +182,21 @@ const UserModel = {
 
   deleteById: async (id) => {
     const [result] = await db.query(`DELETE FROM users_new WHERE id = ?`, [id]);
+    return result.affectedRows;
+  },
+  updateUserTwoFactorSecret: async (userId, secret) => {
+    const [result] = await db.query(
+      `UPDATE users_new SET two_factor_secret = ? WHERE id = ?`,
+      [secret, userId]
+    );
+    return result.affectedRows;
+  },
+
+  updateUserTwoFactorStatus: async (userId, isEnabled) => {
+    const [result] = await db.query(
+      `UPDATE users_new SET is_two_factor_enabled = ? WHERE id = ?`,
+      [isEnabled, userId]
+    );
     return result.affectedRows;
   },
 };

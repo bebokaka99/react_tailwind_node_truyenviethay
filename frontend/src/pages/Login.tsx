@@ -1,10 +1,17 @@
+// pages/Login.tsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext'; 
+import { useAuth } from '../contexts/AuthContext';
+import { UserData } from '../types/user';
+import TwoFactorAuthLoginModal from '../components/auth/TwoFactorAuthLoginModal';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+
+const API_BASE_URL = 'http://localhost:3000/api';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth(); // Lấy hàm login từ AuthContext
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     username: '',
@@ -13,6 +20,8 @@ const Login = () => {
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [is2FAModalOpen, setIs2FAModalOpen] = useState(false);
+  const [tempUser, setTempUser] = useState<UserData | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -22,38 +31,62 @@ const Login = () => {
     }));
   };
 
+  const handleLoginSuccess = (data: any) => {
+    const { token, user } = data;
+    login(token, user);
+    toast.success('Đăng nhập thành công!');
+    navigate('/');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3000/api/auth/dang-nhap', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: formData.username,
-          password: formData.password
-        }),
+      const response = await axios.post(`${API_BASE_URL}/auth/dang-nhap`, {
+        username: formData.username,
+        password: formData.password
       });
 
-      const { token, user, message } = await response.json();
-
-      if (!response.ok) {
-        throw new Error(message || 'Đăng nhập thất bại');
-      }
-
-      // **Sửa tại đây:**
-      // Gọi hàm login từ context với cả token và đối tượng user
-      login(token, user);
-
-      // Chuyển hướng người dùng đến trang chính
-      navigate('/');
+      handleLoginSuccess(response.data); // Sửa tại đây
 
     } catch (err: any) {
-      setError(err.message || 'Đăng nhập thất bại. Vui lòng thử lại.');
+      if (axios.isAxiosError(err) && err.response) {
+        if (err.response.status === 403 && err.response.data?.message === "Yêu cầu xác thực 2 yếu tố.") {
+          setTempUser(err.response.data.data.user);
+          setIs2FAModalOpen(true);
+        } else {
+          setError(err.response.data?.message || 'Đăng nhập thất bại. Vui lòng thử lại.');
+        }
+      } else {
+        setError('Đã xảy ra lỗi không xác định.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleVerify2FA = async (otpToken: string) => {
+    if (!tempUser) return;
+    setError('');
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post(`${API_BASE_URL}/auth/2fa/verify-login`, {
+        otpToken,
+        userId: tempUser.id,
+      });
+
+      handleLoginSuccess(response.data); // Sửa tại đây
+      setIs2FAModalOpen(false);
+
+    } catch (err: any) {
+      if (axios.isAxiosError(err) && err.response) {
+        setError(err.response.data?.message || 'Mã xác thực không hợp lệ. Vui lòng thử lại.');
+      } else {
+        setError('Đã xảy ra lỗi không xác định.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -196,6 +229,18 @@ const Login = () => {
           </div>
         </div>
       </div>
+      
+      <TwoFactorAuthLoginModal
+        isOpen={is2FAModalOpen}
+        onClose={() => {
+          setIs2FAModalOpen(false);
+          setTempUser(null);
+          setError('');
+        }}
+        onVerify={handleVerify2FA}
+        isLoading={isLoading}
+        error={error}
+      />
     </div>
   );
 };

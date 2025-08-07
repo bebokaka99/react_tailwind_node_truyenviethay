@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useProfile } from '../../hooks/useProfile';
 import { UserData } from '../../types/user';
 import ChangePasswordModal from './ChangePasswordModal';
+import TwoFactorAuthModal from './TwoFactorAuthModal'; // Import modal 2FA
 
 export default function AccountSettings() {
   const { 
@@ -15,10 +16,19 @@ export default function AccountSettings() {
     updateProfile,
     changePassword,
     passwordChangeError,
+    // Các state và hàm mới từ useProfile cho 2FA
+    qrCodeUrl,
+    twoFactorSecret,
+    twoFactorLoading,
+    twoFactorError,
+    generateTwoFactor,
+    verifyAndEnableTwoFactor,
+    disableTwoFactor
   } = useProfile();
 
   const [isEditing, setIsEditing] = useState(false);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [isTwoFactorModalOpen, setIsTwoFactorModalOpen] = useState(false);
   const [formData, setFormData] = useState<Partial<UserData>>({
     full_name: '',
     username: '',
@@ -27,6 +37,9 @@ export default function AccountSettings() {
     gender: 'male',
   });
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [isDisabling2FA, setIsDisabling2FA] = useState(false);
+  const [disableToken, setDisableToken] = useState('');
+  const [disableError, setDisableError] = useState('');
 
   // Cập nhật formData khi dữ liệu profile từ API có
   useEffect(() => {
@@ -97,6 +110,39 @@ export default function AccountSettings() {
     }
   };
 
+  // Logic 2FA
+  const handleEnable2FA = () => {
+    setIsTwoFactorModalOpen(true);
+    generateTwoFactor();
+  };
+
+  const handleVerifyAndEnable = async (token: string) => {
+    const result = await verifyAndEnableTwoFactor(token);
+    if (result.success) {
+      setIsTwoFactorModalOpen(false);
+      alert('Kích hoạt 2FA thành công!');
+    } else {
+      // Lỗi sẽ được hiển thị trong modal
+    }
+  };
+  
+  const handleDisable2FA = () => {
+    setIsDisabling2FA(true);
+  };
+
+  const handleConfirmDisable2FA = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setDisableError('');
+    const result = await disableTwoFactor(disableToken);
+    if (result.success) {
+      setIsDisabling2FA(false);
+      setDisableToken('');
+      alert('Vô hiệu hóa 2FA thành công!');
+    } else {
+      setDisableError(result.message);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -123,6 +169,7 @@ export default function AccountSettings() {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+      {/*... Phần thông tin tài khoản (không đổi) ...*/}
       <div className="p-6 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
@@ -337,6 +384,7 @@ export default function AccountSettings() {
               Bảo Mật
             </h4>
             <div className="space-y-4">
+              {/*... Phần đổi mật khẩu (không đổi) ...*/}
               <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div>
                   <p className="font-medium text-gray-900 dark:text-gray-100">
@@ -353,29 +401,128 @@ export default function AccountSettings() {
                   Đổi mật khẩu
                 </button>
               </div>
+
+              {/* Phần 2FA mới */}
               <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div>
                   <p className="font-medium text-gray-900 dark:text-gray-100">
                     Xác thực hai yếu tố
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Tăng cường bảo mật cho tài khoản
+                    {profile.is_two_factor_enabled ? (
+                      <span className="text-green-500 dark:text-green-400">Đã kích hoạt</span>
+                    ) : (
+                      <span className="text-gray-500 dark:text-gray-400">Chưa kích hoạt</span>
+                    )}
                   </p>
                 </div>
-                <button className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 font-medium whitespace-nowrap cursor-pointer">
-                  Kích hoạt
-                </button>
+                {profile.is_two_factor_enabled ? (
+                  <button
+                    onClick={handleDisable2FA}
+                    className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-200 font-medium whitespace-nowrap cursor-pointer"
+                  >
+                    Tắt
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleEnable2FA}
+                    className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 font-medium whitespace-nowrap cursor-pointer"
+                  >
+                    Kích hoạt
+                  </button>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
+      
+      {/* Modal đổi mật khẩu */}
       <ChangePasswordModal
         isOpen={isPasswordModalOpen}
         onClose={() => setIsPasswordModalOpen(false)}
         onChangePassword={changePassword}
         error={passwordChangeError}
       />
+      
+      {/* Modal kích hoạt 2FA */}
+      <TwoFactorAuthModal
+        isOpen={isTwoFactorModalOpen}
+        onClose={() => setIsTwoFactorModalOpen(false)}
+        qrCodeUrl={qrCodeUrl}
+        onVerifyAndEnable={handleVerifyAndEnable}
+        isLoading={twoFactorLoading}
+        error={twoFactorError}
+      />
+      
+      {/* Modal xác nhận tắt 2FA */}
+      {isDisabling2FA && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none bg-black bg-opacity-50">
+          <div className="relative w-auto my-6 mx-auto max-w-sm">
+            <div className="relative flex flex-col w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg outline-none focus:outline-none">
+              <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 dark:border-gray-700 rounded-t">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+                  Tắt Xác Thực Hai Yếu Tố
+                </h3>
+                <button
+                  className="p-1 ml-auto bg-transparent border-0 text-gray-900 dark:text-gray-100 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                  onClick={() => {
+                    setIsDisabling2FA(false);
+                    setDisableToken('');
+                    setDisableError('');
+                  }}
+                >
+                  <span className="text-gray-900 dark:text-gray-100 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                    ×
+                  </span>
+                </button>
+              </div>
+              <form onSubmit={handleConfirmDisable2FA}>
+                <div className="relative p-6 flex-auto">
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    Để tắt 2FA, vui lòng nhập mã xác thực từ ứng dụng của bạn.
+                  </p>
+                  <input
+                    type="text"
+                    value={disableToken}
+                    onChange={(e) => setDisableToken(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-center text-xl font-mono tracking-widest rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                    maxLength={6}
+                    required
+                  />
+                  {disableError && (
+                    <div className="mt-3 bg-red-100 dark:bg-red-900 p-3 rounded-md text-red-700 dark:text-red-300 text-sm">
+                      <p>{disableError}</p>
+                    </div>
+                  )}
+                </div>
+                <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 dark:border-gray-700 rounded-b space-x-2">
+                  <button
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition-colors duration-200"
+                    type="button"
+                    onClick={() => {
+                      setIsDisabling2FA(false);
+                      setDisableToken('');
+                      setDisableError('');
+                    }}
+                    disabled={twoFactorLoading}
+                  >
+                    Hủy
+                  </button>
+                  <button
+                    className={`bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg flex items-center gap-2 transition-colors duration-200 ${twoFactorLoading || !disableToken ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    type="submit"
+                    disabled={twoFactorLoading || !disableToken}
+                  >
+                    {twoFactorLoading && <i className="ri-loader-4-line ri-spin"></i>}
+                    Tắt 2FA
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

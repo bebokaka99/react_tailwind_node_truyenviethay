@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const logger = require("../ultils/logger");
+const speakeasy = require('speakeasy');
 
 exports.register = asyncHandler(async (req, res) => {
     const {
@@ -48,7 +49,7 @@ exports.register = asyncHandler(async (req, res) => {
     res.status(201).json({ message: "Đăng ký thành công" });
 });
 
-exports.login = asyncHandler(async (req, res) => {
+exports.login = asyncHandler(async (req, res, next) => {
     const { username, password } = req.body;
 
     const results = await User.findByUsername(username);
@@ -78,6 +79,16 @@ exports.login = asyncHandler(async (req, res) => {
         }
     }
 
+    // Kiểm tra nếu người dùng đã bật 2FA
+    if (user.is_two_factor_enabled) {
+        return res.status(200).json({
+            message: "Yêu cầu mã xác thực hai yếu tố",
+            two_factor_required: true,
+            userId: user.id
+        });
+    }
+
+    // Tạo token nếu 2FA chưa được bật
     const token = jwt.sign(
         { id: user.id, role: user.role },
         process.env.JWT_SECRET,
@@ -93,6 +104,57 @@ exports.login = asyncHandler(async (req, res) => {
             role: user.role,
             full_name: user.full_name,
             avatar: user.avatar,
+            is_two_factor_enabled: user.is_two_factor_enabled,
+        },
+    });
+});
+
+exports.verifyTwoFactor = asyncHandler(async (req, res, next) => {
+    const { userId, token: otpToken } = req.body;
+
+    if (!userId || !otpToken) {
+        res.status(400);
+        throw new Error("Thiếu thông tin người dùng hoặc mã xác thực.");
+    }
+
+    const results = await User.findById(userId);
+    const user = results[0];
+
+    if (!user || !user.is_two_factor_enabled || !user.two_factor_secret) {
+        res.status(400);
+        throw new Error("2FA không được kích hoạt cho tài khoản này.");
+    }
+
+    // Xác minh mã OTP
+    const verified = speakeasy.totp.verify({
+        secret: user.two_factor_secret,
+        encoding: 'base32',
+        token: otpToken,
+        window: 1
+    });
+
+    if (!verified) {
+        res.status(401);
+        throw new Error("Mã xác thực không hợp lệ.");
+    }
+
+    // Nếu xác minh thành công, tạo và trả về token JWT
+    const token = jwt.sign(
+        { id: user.id, role: user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+    );
+
+    res.json({
+        message: "Xác thực 2FA thành công",
+        token,
+        user: {
+            id: user.id,
+            username: user.username,
+            role: user.role,
+            full_name: user.full_name,
+            avatar: user.avatar,
+            is_two_factor_enabled: user.is_two_factor_enabled,
         },
     });
 });
@@ -119,6 +181,7 @@ exports.getMe = asyncHandler(async (req, res) => {
             role: user.role,
             gender: user.gender,
             created_at: user.created_at,
+            is_two_factor_enabled: user.is_two_factor_enabled, // Thêm trường này
         },
     });
 });
@@ -162,11 +225,9 @@ exports.updateMe = asyncHandler(async (req, res) => {
 });
 
 exports.changePassword = asyncHandler(async (req, res) => {
-    // Lấy ID người dùng đã được xác thực từ req.user
     const userId = req.user.id;
     const { oldPassword, newPassword } = req.body;
 
-    // Kiểm tra tính hợp lệ của input
     if (!oldPassword || !newPassword) {
         res.status(400);
         throw new Error("Vui lòng nhập đầy đủ mật khẩu cũ và mật khẩu mới.");
@@ -177,14 +238,12 @@ exports.changePassword = asyncHandler(async (req, res) => {
         throw new Error("Không tìm thấy người dùng.");
     }
     const user = userResults[0];
-    // So sánh mật khẩu cũ với mật khẩu trong DB
     const isMatch = await bcrypt.compare(oldPassword, user.password);
     if (!isMatch) {
         res.status(400);
         throw new Error("Mật khẩu cũ không đúng.");
     }
 
-    // Kiểm tra xem mật khẩu mới có giống mật khẩu cũ không
     const isNewPasswordSameAsOld = await bcrypt.compare(
         newPassword,
         user.password
@@ -194,10 +253,7 @@ exports.changePassword = asyncHandler(async (req, res) => {
         throw new Error("Mật khẩu mới không được giống mật khẩu cũ.");
     }
 
-    // Mã hóa mật khẩu mới
     const hashed = await bcrypt.hash(newPassword, 10);
-
-    // Cập nhật mật khẩu vào cơ sở dữ liệu
     const updatedAffectedRows = await User.updatePassword(user.id, hashed);
 
     if (updatedAffectedRows === 0) {

@@ -5,11 +5,13 @@ export interface UserData {
   username: string;
   full_name: string;
   email: string;
-  avatar: string;
-  bio: string;
+  phone: string; 
+  avatar: string | null; 
+  bio?: string; 
   role: string;
-  memberSince: string;
   gender: string;
+  created_at: string; 
+  is_two_factor_enabled: boolean; 
 }
 
 export interface StatsData {
