@@ -12,6 +12,9 @@ import GenresPage from './pages/GenresPage';
 import RankingsPage from './pages/RankingsPage';
 import LibraryPage from './pages/LibraryPage';
 import ReadingHistoryPage from './pages/ReadingHistoryPage'; 
+import SettingProfilePage from './pages/ProfileSettings';
+import AdminDashboard from './pages/dashboard/AdminDashboard';
+import AuthorDashboard from './pages/dashboard/AuthorDashboard';
 
 function App() {
   return (
@@ -34,6 +37,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile-settings" element={<SettingProfilePage />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/author-dashboard" element={<AuthorDashboard />} />
         </Routes>
       </Router>
     </AuthProvider>

@@ -28,17 +28,7 @@ interface AuthProviderProps {
 
 // Component AuthProvider để bao bọc ứng dụng của bạn
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-    // Sửa lỗi: Lấy thông tin người dùng từ localStorage ngay khi component được tạo
-    const [user, setUser] = useState<User | null>(() => {
-      try {
-        const storedUser = localStorage.getItem('currentUser');
-        return storedUser ? JSON.parse(storedUser) : null;
-      } catch (error) {
-        console.error("Failed to parse user from localStorage", error);
-        return null;
-      }
-    });
-
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     // Hàm này sẽ được gọi khi bạn đăng nhập thành công
@@ -57,14 +47,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     // Hàm này để lấy thông tin người dùng từ API, sử dụng khi tải lại trang
     const fetchUser = async (token: string) => {
-        if (!token) {
-            setUser(null);
-            setLoading(false);
-            return;
-        }
-
         try {
-            // Gọi API để lấy thông tin người dùng
             const response = await axios.get('http://localhost:3000/api/auth/me', {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -72,10 +55,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             });
 
             if (response.status === 200) {
-                const userData: User = response.data;
+                const userData: User = response.data.user;
                 setUser(userData);
             } else {
-                // Nếu token không hợp lệ, xóa nó đi
                 logout();
             }
         } catch (error) {
@@ -88,7 +70,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
-        // Sửa lỗi: Chỉ gọi fetchUser nếu chưa có thông tin người dùng
         if (token) {
             fetchUser(token);
         } else {

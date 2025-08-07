@@ -94,7 +94,6 @@ export default function ProfileInfo({ user, isEditing, onStartEdit, onCancelEdit
               <p className="text-gray-900 dark:text-white text-sm">{user.email}</p>
             </div>
             
-            {/* Hiển thị thông tin giới tính */}
             <div>
               <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 <i className="ri-user-line"></i>
@@ -132,10 +131,13 @@ export default function ProfileInfo({ user, isEditing, onStartEdit, onCancelEdit
             Chỉnh Sửa Hồ Sơ
           </button>
           
-          <button className="w-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer">
+          <a 
+            href="/profile-settings" 
+            className="w-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer"
+          >
             <i className="ri-settings-line"></i>
             Cài Đặt
-          </button>
+          </a>
         </div>
       </div>
     </div>
