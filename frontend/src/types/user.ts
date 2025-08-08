@@ -7,7 +7,7 @@ export interface UserData {
   email: string;
   phone: string; 
   avatar: string | null; 
-  bio?: string; 
+  bio: string; 
   role: string;
   gender: string;
   created_at: string; 

@@ -15,7 +15,7 @@ const rateLimit = require("express-rate-limit");
 
 const logger = require("./ultils/logger");
 const errorMiddleware = require("./middleware/errorHandler");
-
+const adminStatsRoutes = require("./routes/adminStats.routes");
 app.use(
     cors({
         origin: "http://localhost:5173",
@@ -79,6 +79,7 @@ app.use("/api/rewards", require("./routes/reward.routes"));
 app.use("/api/user-rewards", require("./routes/userReward.routes"));
 app.use("/api/ratings", require("./routes/rating.routes"));
 app.use("/api/2fa", require("./routes/two_factor.routes"));
+app.use("/api/admin", adminStatsRoutes);
 
 app.get("/", (req, res) => {
     res.send("Backend is working!");

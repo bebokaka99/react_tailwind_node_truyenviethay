@@ -253,6 +253,16 @@ const getHomePageData = async (req, res) => {
     console.error("Lỗi khi lấy dữ liệu trang chủ:", error);
     res.status(500).json({ message: "Lỗi server khi lấy dữ liệu trang chủ" });
   }
+}
+const getTopStories = async (req, res) => {
+    try {
+        const limit = req.query.limit ? parseInt(req.query.limit) : 5;
+        const topStories = await StoryModel.getTopStoriesByViews(limit);
+        res.status(200).json(topStories);
+    } catch (error) {
+        console.error("Lỗi khi lấy truyện phổ biến nhất:", error);
+        res.status(500).json({ message: "Lỗi server khi lấy truyện phổ biến nhất" });
+    }
 };
 
 
@@ -268,4 +278,5 @@ module.exports = {
   getStoryBySlug,
   getPublicStories,
   getHomePageData,
+  getTopStories,
 };

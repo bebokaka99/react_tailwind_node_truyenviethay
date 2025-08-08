@@ -317,6 +317,29 @@ const StoryModel = {
     );
     return rows;
   },
+  getTopStoriesByViews: async (limit = 5) => {
+    const [rows] = await db.query(
+      `
+            SELECT 
+                tn.id AS id_truyen, 
+                tn.ten_truyen, 
+                tn.tac_gia, 
+                tn.trang_thai_viet,
+                tn.rating,
+                tn.luot_xem
+            FROM truyen_new tn
+            WHERE tn.trang_thai_kiem_duyet = 'duyet'
+            ORDER BY tn.luot_xem DESC
+            LIMIT ?
+            `,
+      [limit]
+    );
+    return rows;
+  },
+  countStories: async () => {
+    const [result] = await db.query(`SELECT COUNT(*) AS total FROM truyen_new`);
+    return result[0].total;
+  },
 };
 
 module.exports = StoryModel;

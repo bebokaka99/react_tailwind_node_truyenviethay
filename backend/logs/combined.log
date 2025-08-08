@@ -1871,3 +1871,145 @@
 [2025-08-08 02:57:20] info: GET /api/auth/me
 [2025-08-08 02:57:20] info: GET /api/auth/me
 [2025-08-08 02:57:20] info: GET /api/auth/me
+[2025-08-08 04:19:46] info: Server is running on http://localhost:3000
+[2025-08-08 04:19:48] info: POST /api/auth/dang-nhap
+[2025-08-08 04:19:48] error: POST /api/auth/dang-nhap - Tài khoản hoặc mật khẩu không đúng.
+[2025-08-08 04:19:53] info: POST /api/auth/dang-nhap
+[2025-08-08 04:19:53] error: POST /api/auth/dang-nhap - Tài khoản hoặc mật khẩu không đúng.
+[2025-08-08 04:19:54] info: POST /api/auth/dang-nhap
+[2025-08-08 04:20:08] info: POST /api/auth/2fa/verify-login
+[2025-08-08 04:20:08] info: GET /api/truyen/home
+[2025-08-08 04:20:08] info: GET /api/truyen/home
+[2025-08-08 04:20:10] info: GET /api/user/me
+[2025-08-08 04:20:10] info: GET /api/user/me
+[2025-08-08 04:20:12] info: GET /api/auth/me
+[2025-08-08 04:20:12] info: GET /api/auth/me
+[2025-08-08 04:20:12] info: GET /api/auth/me
+[2025-08-08 04:20:23] info: PUT /api/auth/me
+[2025-08-08 04:20:27] info: GET /api/user/me
+[2025-08-08 04:20:27] info: GET /api/user/me
+[2025-08-08 04:20:30] info: GET /api/user/me
+[2025-08-08 04:20:30] info: GET /api/auth/me
+[2025-08-08 04:20:30] info: GET /api/user/me
+[2025-08-08 04:20:30] info: GET /api/auth/me
+[2025-08-08 04:20:37] info: GET /api/auth/me
+[2025-08-08 04:20:37] info: GET /api/auth/me
+[2025-08-08 04:20:38] info: GET /api/auth/me
+[2025-08-08 04:21:50] info: GET /api/auth/me
+[2025-08-08 04:21:50] info: GET /api/auth/me
+[2025-08-08 04:21:51] info: GET /api/auth/me
+[2025-08-08 04:23:16] info: GET /api/auth/me
+[2025-08-08 04:23:16] info: GET /api/auth/me
+[2025-08-08 04:23:16] info: GET /api/auth/me
+[2025-08-08 04:23:16] info: GET /api/auth/me
+[2025-08-08 04:23:40] info: GET /api/auth/me
+[2025-08-08 04:23:40] info: GET /api/auth/me
+[2025-08-08 04:23:41] info: GET /api/auth/me
+[2025-08-08 04:23:43] info: GET /api/auth/me
+[2025-08-08 04:23:43] info: GET /api/auth/me
+[2025-08-08 04:23:43] info: GET /api/auth/me
+[2025-08-08 04:25:11] info: POST /api/auth/dang-nhap
+[2025-08-08 04:25:11] error: POST /api/auth/dang-nhap - Tài khoản hoặc mật khẩu không đúng.
+[2025-08-08 04:25:12] info: POST /api/auth/dang-nhap
+[2025-08-08 04:25:24] info: POST /api/auth/dang-nhap
+[2025-08-08 04:25:24] error: POST /api/auth/dang-nhap - Tài khoản hoặc mật khẩu không đúng.
+[2025-08-08 04:25:26] info: POST /api/auth/dang-nhap
+[2025-08-08 04:25:26] error: POST /api/auth/dang-nhap - Tài khoản hoặc mật khẩu không đúng.
+[2025-08-08 04:25:33] info: POST /api/auth/dang-nhap
+[2025-08-08 04:25:41] info: POST /api/auth/2fa/verify-login
+[2025-08-08 04:25:41] info: GET /api/truyen/home
+[2025-08-08 04:25:41] info: GET /api/truyen/home
+[2025-08-08 04:25:45] info: GET /api/user/me
+[2025-08-08 04:25:45] info: GET /api/user/me
+[2025-08-08 04:25:52] info: GET /api/auth/me
+[2025-08-08 04:25:52] info: GET /api/auth/me
+[2025-08-08 04:25:52] info: GET /api/auth/me
+[2025-08-08 04:25:52] info: GET /api/auth/me
+[2025-08-08 07:40:23] info: Server is running on http://localhost:3000
+[2025-08-08 07:40:35] info: Server is running on http://localhost:3000
+[2025-08-08 07:40:55] info: GET /api/truyen/home
+[2025-08-08 07:40:55] info: GET /api/truyen/home
+[2025-08-08 07:51:48] info: Server is running on http://localhost:3000
+[2025-08-08 08:01:11] info: Server is running on http://localhost:3000
+[2025-08-08 08:02:14] info: Server is running on http://localhost:3000
+[2025-08-08 08:02:32] info: GET /api/truyen/home
+[2025-08-08 08:02:32] info: GET /api/truyen/home
+[2025-08-08 08:02:37] info: POST /api/auth/dang-nhap
+[2025-08-08 08:02:46] info: POST /api/auth/dang-nhap
+[2025-08-08 08:02:46] info: GET /api/truyen/home
+[2025-08-08 08:02:46] info: GET /api/truyen/home
+[2025-08-08 08:02:51] info: GET /api/admin/stats
+[2025-08-08 08:02:51] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:02:51] info: GET /api/admin/stats
+[2025-08-08 08:02:51] info: GET /api/auth/me
+[2025-08-08 08:02:51] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:02:51] info: GET /api/auth/me
+[2025-08-08 08:03:10] info: GET /api/truyen/home
+[2025-08-08 08:03:10] info: GET /api/auth/me
+[2025-08-08 08:03:10] info: GET /api/auth/me
+[2025-08-08 08:03:10] info: GET /api/truyen/home
+[2025-08-08 08:03:12] info: GET /api/user/me
+[2025-08-08 08:03:12] info: GET /api/user/me
+[2025-08-08 08:03:46] info: POST /api/auth/dang-nhap
+[2025-08-08 08:03:46] info: GET /api/truyen/home
+[2025-08-08 08:03:46] info: GET /api/truyen/home
+[2025-08-08 08:03:51] info: GET /api/admin/stats
+[2025-08-08 08:03:51] info: GET /api/auth/me
+[2025-08-08 08:03:51] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:03:51] info: GET /api/admin/stats
+[2025-08-08 08:03:51] info: GET /api/auth/me
+[2025-08-08 08:03:51] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:04:08] info: Server is running on http://localhost:3000
+[2025-08-08 08:04:13] info: GET /api/admin/stats
+[2025-08-08 08:04:13] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:04:13] info: GET /api/auth/me
+[2025-08-08 08:04:13] info: GET /api/admin/stats
+[2025-08-08 08:04:13] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:04:13] info: GET /api/auth/me
+[2025-08-08 08:06:22] info: Server is running on http://localhost:3000
+[2025-08-08 08:06:24] info: GET /api/admin/stats
+[2025-08-08 08:06:24] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:06:24] info: GET /api/auth/me
+[2025-08-08 08:06:24] info: GET /api/admin/stats
+[2025-08-08 08:06:24] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:06:24] info: GET /api/auth/me
+[2025-08-08 08:09:55] info: Server is running on http://localhost:3000
+[2025-08-08 08:09:57] info: GET /api/admin/stats
+[2025-08-08 08:09:57] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:09:57] info: GET /api/auth/me
+[2025-08-08 08:09:57] info: GET /api/admin/stats
+[2025-08-08 08:09:57] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:09:57] info: GET /api/auth/me
+[2025-08-08 08:13:40] info: Server is running on http://localhost:3000
+[2025-08-08 08:13:47] info: Server is running on http://localhost:3000
+[2025-08-08 08:13:52] info: GET /api/truyen/home
+[2025-08-08 08:13:52] info: GET /api/auth/me
+[2025-08-08 08:13:52] info: GET /api/auth/me
+[2025-08-08 08:13:52] info: GET /api/truyen/home
+[2025-08-08 08:13:57] info: GET /api/auth/me
+[2025-08-08 08:13:57] info: GET /api/auth/me
+[2025-08-08 08:14:00] info: GET /api/truyen/home
+[2025-08-08 08:14:00] info: GET /api/auth/me
+[2025-08-08 08:14:00] info: GET /api/auth/me
+[2025-08-08 08:14:00] info: GET /api/truyen/home
+[2025-08-08 08:14:02] info: GET /api/admin/stats
+[2025-08-08 08:14:02] info: GET /api/auth/me
+[2025-08-08 08:14:02] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:14:02] info: GET /api/auth/me
+[2025-08-08 08:14:02] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:14:02] info: GET /api/admin/stats
+[2025-08-08 08:15:38] info: Server is running on http://localhost:3000
+[2025-08-08 08:16:22] info: Server is running on http://localhost:3000
+[2025-08-08 08:16:23] info: GET /api/admin/stats
+[2025-08-08 08:16:23] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:16:23] info: GET /api/auth/me
+[2025-08-08 08:16:23] info: GET /api/auth/me
+[2025-08-08 08:16:23] info: GET /api/admin/stats
+[2025-08-08 08:16:23] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:18:06] info: Server is running on http://localhost:3000
+[2025-08-08 08:18:08] info: GET /api/admin/stats
+[2025-08-08 08:18:08] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:18:08] info: GET /api/auth/me
+[2025-08-08 08:18:08] info: GET /api/truyen/top-stories?limit=5
+[2025-08-08 08:18:08] info: GET /api/auth/me
+[2025-08-08 08:18:08] info: GET /api/admin/stats

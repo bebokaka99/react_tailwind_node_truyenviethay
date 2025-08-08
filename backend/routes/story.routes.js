@@ -5,6 +5,15 @@ const uploadStoryController = require("../controllers/up_story.controller.js");
 const { authenticateToken, authorizeRoles } = require("../middleware/auth");
 const upload = require("../middleware/upload_story.js");
 
+// Định nghĩa route lấy danh sách truyện phổ biến nhất cho admin trước
+// để không bị nhầm với route lấy truyện theo ID
+router.get(
+    "/top-stories",
+    authenticateToken,
+    authorizeRoles("admin"),
+    storyController.getTopStories
+);
+
 // Lấy tất cả truyện
 router.get("/", storyController.getAllStories);
 // Lấy truyện public đã duyệt (dành cho frontend)

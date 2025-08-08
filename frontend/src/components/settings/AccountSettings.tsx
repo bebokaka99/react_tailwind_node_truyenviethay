@@ -337,14 +337,14 @@ export default function AccountSettings() {
                 <textarea
                   name="bio"
                   rows={4}
-                  value={formData.bio ?? ''}
+                  value={profile.bio ?? ''}
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-colors duration-200"
                   maxLength={500}
                 />
               ) : (
-                <p className="text-gray-900 dark:text-gray-100 py-2 leading-relaxed">
-                  {profile.bio ?? 'Chưa có thông tin giới thiệu.'}
+                <p className="text-red-500 dark:text-red-400 py-2 leading-relaxed">
+                  {profile.bio ?? 'Hiện bio trang này bị lỗi vui lòng chỉnh sửa bio tại trang profile của bạn, chúng tôi thành thật xin lỗi vì bất tiện này.'}
                 </p>
               )}
             </div>
